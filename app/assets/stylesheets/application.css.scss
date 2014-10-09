@@ -16,13 +16,12 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-.topBar{
+.navbar{
   background: orange;
   border: orange;
 }
 
 h2{
-  border: 1px black solid;
   background: #92C4F0;
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
@@ -31,6 +30,6 @@ h1{
   margin-bottom: 40px;
 }
 
-p{
-  margin-bottom: 40px;
+.img-responsive {
+  width: 100%
 }
