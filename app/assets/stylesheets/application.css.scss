@@ -19,6 +19,7 @@
 .navbar{
   background: orange;
   border: orange;
+  padding-top: 10px;
 }
 
 h2{
@@ -30,11 +31,7 @@ h2{
   width: 100%;
 }
 
-.about {
-  margin-right: 50px;
-}
-
-.terms {
+.about, .terms {
   margin-right: 50px;
 }
 
