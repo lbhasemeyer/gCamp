@@ -23,19 +23,18 @@
 
 h2{
   background: #92C4F0;
-  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-}
-
-#gCamp {
-  font-size: 30px;
+  font-family: "Lucida Grande";
 }
 
 .img-responsive {
   width: 100%;
 }
 
-#about, #terms {
-  font-size: 30px;
+.about {
+  margin-right: 50px;
+}
+
+.terms {
   margin-right: 50px;
 }
 
@@ -44,7 +43,7 @@ h2{
 }
 
 h3 {
-  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-family: "Lucida Grande";
   font-size: 60px;
   text-align: center;
 }
