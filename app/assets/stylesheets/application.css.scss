@@ -22,7 +22,7 @@
   padding-top: 10px;
 }
 
-h2{
+h2 {
   background: #92C4F0;
   font-family: "Lucida Grande";
 }
@@ -30,10 +30,6 @@ h2{
 .image-responsive {
   width: 100%;
   height: auto;
-}
-
-.about, .terms, .faq {
-  margin-right: 50px;
 }
 
 .container .footer {
@@ -44,6 +40,11 @@ h3 {
   font-family: "Lucida Grande";
   font-size: 60px;
   text-align: center;
+}
+
+h4 {
+  font-family: "Lucinda Grande";
+  font-size: 60px;
 }
 
 #about_info {
