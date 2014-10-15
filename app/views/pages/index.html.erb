@@ -10,6 +10,7 @@
 
 <div class="container">
   <!-- Example row of columns -->
+<div class="row">
 
     <div class="col-md-4">
       <%= image_tag("Man_with_phone.jpg", :class => "image-responsive") %>
@@ -36,6 +37,7 @@
         </ul>
     </div>
 </div>
+</div>
 
 <div class="container">
 
@@ -49,12 +51,12 @@
     ]
   %> -->
 
-  <% @quotes.each do |quote| %>
-<blockquote>
+<% @quotes.each do |quote| %>
+  <blockquote>
     <p><%= quote[0] %></p>
     <footer><%= quote[1] %></footer>
-</blockquote>
-  <% end %>
+  </blockquote>
+<% end %>
 
 
 </div>
