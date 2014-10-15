@@ -39,9 +39,8 @@
 </div>
 </div>
 
-<div class="container">
+<div class="container quotes">
 
-<br></br>
 <br></br>
 
   <!-- <% quotes= [
@@ -53,10 +52,11 @@
 
 <% @quotes.each do |quote| %>
   <blockquote>
-    <p><%= quote[0] %></p>
-    <footer><%= quote[1] %></footer>
+    <p><%= quote.text %></p>
+    <footer><%= quote.author %></footer>
   </blockquote>
 <% end %>
 
+<br></br>
 
 </div>
