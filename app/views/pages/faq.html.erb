@@ -1,8 +1,7 @@
 <h3>FAQs</h3>
 
 <% @faqs.each do |faq| %>
-  <blockquote>
-    <p><%= faq.question %></p>
+    <strong><p><%= faq.question %></p></strong>
     <footer><%= faq.answer %></footer>
-  </blockquote>
+    <br></br>
 <% end %>
