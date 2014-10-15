@@ -42,7 +42,7 @@ h3 {
 }
 
 h4 {
-  font-family: "Lucinda Grande";
+  font-family: "Lucida Grande";
   font-size: 60px;
 }
 
@@ -54,6 +54,15 @@ blockquote {
   border-left: 0px;
 }
 
-.panel-title {
-  background: #92C4F0;
+.panel-heading {
+  background-color:#92C4F0 !important;
+}
+
+.panel {
+  height: 150px;
+}
+
+.quotes {
+  border-left: solid;
+  border-left-color: gray;
 }

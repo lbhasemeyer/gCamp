@@ -59,25 +59,15 @@
 
 </div>
 
+<br></br>
 
 <div class="quotes">
-
-<br></br>
-
-  <!-- <% quotes= [
-    ["We owe a lot to Thomas Edison - if it wasn't for him, we'd be watching television by candlelight.", "Milton Berle"],
-    ["The higher a monkey climbs, the more you see of its behind.", "Joseph Stilwell"],
-    ["I think it's wrong that only one company makes the game Monopoly.", "Steven Wright"]
-    ]
-  %> -->
-
-<% @quotes.each do |quote| %>
-  <blockquote>
-    <p><%= quote.text %></p>
-    <footer><%= quote.author %></footer>
-  </blockquote>
-<% end %>
-
-<br></br>
-
+  <% @quotes.each do |quote| %>
+    <blockquote>
+      <p><%= quote.text %></p>
+      <footer><%= quote.author %></footer>
+    </blockquote>
+  <% end %>
 </div>
+
+<br></br>
