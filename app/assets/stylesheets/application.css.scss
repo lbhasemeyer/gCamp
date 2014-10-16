@@ -66,11 +66,3 @@ blockquote {
   border-left: solid;
   border-left-color: gray;
 }
-
-.big_photo {
-  background-image: url(image-path('carousel.jpg'));
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
