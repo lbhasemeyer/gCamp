@@ -1,4 +1,5 @@
 <%= form_for(@task) do |f| %>
+
   <% if @task.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
@@ -11,11 +12,11 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :description %><br>
+  <div class="field form-horizontal">
+    <%= f.label :description %>
     <%= f.text_field :description %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Create Task", class:"btn btn-primary" %>
   </div>
 <% end %>
