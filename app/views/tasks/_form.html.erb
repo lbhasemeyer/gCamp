@@ -12,11 +12,11 @@
     </div>
   <% end %>
 
-  <div class="field form-horizontal">
-    <%= f.label :description %>
-    <%= f.text_field :description %>
-  </div>
-  <div class="actions">
+<form class="field form-horizontal">
+    <%= f.label :description, class: "col-sm-1" %>
+    <%= f.text_field :description, class: "col-sm-8" %>
+  <div class="col-sm-10">
     <%= f.submit "Create Task", class:"btn btn-primary" %>
   </div>
+</form>
 <% end %>
