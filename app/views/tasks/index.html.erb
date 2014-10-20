@@ -15,9 +15,9 @@
       <% @tasks.each do |task| %>
         <tr>
           <td><%= task.description %></td>
-          <td><button type="button" class="btn btn-primary"><%= link_to 'Show', task %></button></td>
-          <td><button type="button" class="btn btn-primary"><%= link_to 'Edit', edit_task_path(task) %></button></td>
-          <td><button type="button" class="btn btn-primary"><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></button></td>
+          <td><button type="button" class="btn btn-success"><%= link_to 'Show', task %></button></td>
+          <td><button type="button" class="btn btn-info"><%= link_to 'Edit', edit_task_path(task) %></button></td>
+          <td><button type="button" class="btn btn-warning"><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></button></td>
         </tr>
         <% end %>
       </tbody>
