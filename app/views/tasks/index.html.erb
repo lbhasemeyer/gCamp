@@ -11,7 +11,7 @@
       <tr>
       <div class="col-md-3"><strong>Description</strong></div>
       <div class="col-md-3"><strong>Complete</strong></div>
-      <div class="col-md-3"><strong>Due</strong></div>
+      <div class="col-md-3"><strong>Due Date</strong></div>
     </thead>
 
     <tbody>
@@ -19,7 +19,7 @@
       <% @tasks.each do |task| %>
           <td class="data col-md-3"><%= task.description %></td>
           <td class="data col-md-3"><%= task.complete %></td>
-          <td class="data col-md-3"><%= task.date %></td>
+          <td class="data col-md-3"><%= task.due_date %></td>
       <td>
       <div class= "btn-toolbar pull-right">
         <%= link_to 'Show', task, class: "btn btn-success" %>
