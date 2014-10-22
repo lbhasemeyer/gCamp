@@ -120,6 +120,7 @@ DEPENDENCIES
   autoprefixer-rails
   bootstrap-sass (~> 3.2.0)
   coffee-rails (~> 4.0.0)
+  i18n
   jbuilder (~> 2.0)
   jquery-rails
   pg
