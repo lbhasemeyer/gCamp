@@ -6,29 +6,28 @@
 
     <hr>
 
+<table class="table">
     <thead>
-      <table class="table">
       <tr>
-      <div class="col-md-3"><strong>Description</strong></div>
-      <div class="col-md-3"><strong>Complete</strong></div>
-      <div class="col-md-3"><strong>Due Date</strong></div>
-    </thead>
-
-    <tbody>
-      <table class="table">
-      <% @tasks.each do |task| %>
-          <td class="data col-md-3"><%= task.description %></td>
-          <td class="data col-md-3"><%= task.complete %></td>
-          <td class="data col-md-3"><%= task.due_date %></td>
-      <td>
-      <div class= "btn-toolbar pull-right">
-        <%= link_to 'Show', task, class: "btn btn-success" %>
-        <%= link_to 'Edit', edit_task_path(task), class: "btn btn-info" %>
-        <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-warning" %>
-      </div>
-
+        <th>Description</th>
+        <th>Complete</th>
+        <th>Due Date</th>
       </tr>
-
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+        <tr>
+          <td><%= task.description %></td>
+          <td><%= task.complete %></td>
+          <td><%= task.due_date %></td>
+          <td>
+            <div class= "btn-toolbar pull-right">
+              <%= link_to 'Show', task, class: "btn btn-success" %>
+              <%= link_to 'Edit', edit_task_path(task), class: "btn btn-info" %>
+              <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-warning" %>
+            </div>
+          </td>
+        </tr>
       <% end %>
     </tbody>
 
