@@ -18,8 +18,13 @@
       <% @tasks.each do |task| %>
         <tr>
           <td><%= task.description %></td>
-          <td><%= task.complete %></td>
-          <td><%= task.due_date %></td>
+          <td><% if task.complete %>
+                True
+              <% else %>
+                False
+              <% end %>
+          </td>
+          <td><%= task.due_date.strftime('%m/%d/%Y') %></td>
           <td>
             <div class= "btn-toolbar pull-right">
               <%= link_to 'Show', task, class: "btn btn-success" %>
