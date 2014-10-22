@@ -1,11 +1,10 @@
 <div class= "container tasks_page">
   <table class="table">
-  <h1>Tasks
-    <%= link_to 'Create Task', new_task_path, class: "btn btn-primary pull-right" %>
-  </h1>
+    <h1>Tasks
+      <%= link_to 'Create Task', new_task_path, class: "btn btn-primary pull-right" %>
+    </h1>
 
-  <hr>
-
+    <hr>
 
     <thead>
       <table class="table">
@@ -15,15 +14,12 @@
       <div class="col-md-3"><strong>Due</strong></div>
     </thead>
 
-
     <tbody>
       <table class="table">
       <% @tasks.each do |task| %>
-          <td class="col-md-3"><%= task.description %></td>
-          <td class="col-md-3"><%= task.complete %></td>
-          <td class="col-md-3"><%= task.date %></td>
-      <td>
-
+          <td class="data col-md-3"><%= task.description %></td>
+          <td class="data col-md-3"><%= task.complete %></td>
+          <td class="data col-md-3"><%= task.date %></td>
       <td>
       <div class= "btn-toolbar pull-right">
         <%= link_to 'Show', task, class: "btn btn-success" %>
@@ -31,12 +27,10 @@
         <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-warning" %>
       </div>
 
+      <tr>
 
-      </tr>
       <% end %>
     </tbody>
-
-
 
   </table>
 
