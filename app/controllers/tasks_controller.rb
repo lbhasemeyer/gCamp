@@ -3,11 +3,13 @@ class TasksController < ApplicationController
 
   # GET /tasks
   # GET /tasks.json
+
   def index
-
-    @tasks = Task.all
-
+      @tasks = Task.order(:due_date)
   end
+
+
+
 
   # GET /tasks/1
   # GET /tasks/1.json
