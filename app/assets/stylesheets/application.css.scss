@@ -16,16 +16,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-.navbar{
-  background: orange;
-  border: orange;
-  padding-top: 10px;
-}
-
-.container .footer {
-  padding-top: 5px;
-}
-
 h1 {
   font-family: "Lucida Grande";
 }
@@ -46,10 +36,6 @@ h3 {
   height: auto;
 }
 
-.panel-heading {
-  background-color: #92C4F0 !important;
-}
-
 .panel {
   height: 150px;
 }
@@ -60,9 +46,7 @@ blockquote {
 
 .quotes {
   border-left: solid;
-  border-left-color: gray;
 }
-
 
 #about_info {
   text-align: center;
@@ -80,4 +64,9 @@ blockquote {
 
 p#notice {
   background-color: lightgreen;
+}
+
+.left_footer {
+  padding-top: 10px;
+  display: inline-block;
 }
