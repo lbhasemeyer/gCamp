@@ -1,7 +1,13 @@
 <div class= "container tasks_page">
   <table class="table">
     <h1>Tasks
+      <div class="pull-right">
+      <%= link_to "All", root_path(sort_by: "due_date") %>
+      |
+      <%= link_to "Incomplete", root_path(sort_by: "complete") %>
+      &nbsp
       <%= link_to 'Create Task', new_task_path, class: "btn btn-primary pull-right" %>
+    </div>
     </h1>
 
     <hr>

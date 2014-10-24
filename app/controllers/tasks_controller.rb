@@ -5,7 +5,11 @@ class TasksController < ApplicationController
   # GET /tasks.json
 
   def index
+    if params[:sort_by] == "complete"
       @tasks = Task.order(:due_date)
+    elsif
+      @tasks = Task.order(:complete)
+    end
   end
 
 
