@@ -5,10 +5,12 @@ class TasksController < ApplicationController
   # GET /tasks.json
 
   def index
-    if params[:sort_by] == "complete"
-      @tasks = Task.order(:due_date)
-    elsif
-      @tasks = Task.order(:complete)
+    if params[:filter_by] == "all"
+      @tasks = Task.all
+    elsif params[:filter_by] == "incomplete"
+      @tasks = Task.where(complete:false)
+    else
+      @tasks = Task.where(complete:false)
     end
   end
 

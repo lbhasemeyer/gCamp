@@ -2,12 +2,12 @@
   <table class="table">
     <h1>Tasks
       <div class="pull-right">
-      <%= link_to "All", root_path(sort_by: "due_date") %>
-      |
-      <%= link_to "Incomplete", root_path(sort_by: "complete") %>
-      &nbsp
-      <%= link_to 'Create Task', new_task_path, class: "btn btn-primary pull-right" %>
-    </div>
+        <%= link_to "All", tasks_path(filter_by: "all") %>
+        |
+        <%= link_to "Incomplete", tasks_path(filter_by: "incomplete") %>
+        &nbsp
+        <%= link_to 'Create Task', new_task_path, class: "btn btn-primary pull-right" %>
+      </div>
     </h1>
 
     <hr>
