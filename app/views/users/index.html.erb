@@ -1,4 +1,8 @@
 
+<strong><p id="notice" class="text-center"><%= notice %></p></strong>
+
+
+
 <div class= "container tasks_page">
   <table class="table">
     <h1>Users
@@ -12,17 +16,15 @@
 <table class="table">
     <thead>
       <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
+        <th>Name</th>
         <th>Email</th>
       </tr>
     </thead>
     <tbody>
       <% @users.each do |user| %>
         <tr>
-          <td><%= user.first_name %></td>
-          <td><%= user.last_name %></td>
-          <td><%= user.email %></td>
+          <td><%= user.first_name %>&nbsp<%= user.last_name %></td>
+          <td><%= link_to user.email %></td>
         </tr>
       <% end %>
     </tbody>
