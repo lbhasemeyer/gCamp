@@ -1,0 +1,17 @@
+
+<%= form_for(@users) do |t| %>
+
+    First Name
+    <%= t.text_field :first_name %>
+
+    Last Name
+    <%= t.text_field :last_name %>
+
+    Email
+    <%= t.text_field :email %>
+
+    <div class="form-group">
+      <%= t.submit "Create New User", class: "btn btn-primary"%>
+    </div>
+
+<% end %>
