@@ -2,9 +2,15 @@
   <table class="table">
     <h1>Tasks
       <div class="pull-right">
-        <%= link_to "All", tasks_path(filter_by: "all") %>
-        |
-        <%= link_to "Incomplete", tasks_path(filter_by: "incomplete") %>
+        <% if params[:filter_by] == "all" %>
+          All
+          |
+          <%= link_to "Incomplete", tasks_path(filter_by: "incomplete") %>
+        <% else %>
+          <%= link_to "All", tasks_path(filter_by: "all") %>
+          |
+          Incomplete
+        <% end %>
         &nbsp
         <%= link_to 'Create Task', new_task_path, class: "btn btn-primary pull-right" %>
       </div>
