@@ -30,11 +30,13 @@
 </div>
 
 <div class="form-group col-sm-offset-1 col-sm-11">
-  <div class="left">
-      <br>
-      <%= f.check_box :complete %>
-      <%= f.label :complete %>
-  </div>
+  <% if @task.id %>
+    <div class="left">
+        <br>
+        <%= f.check_box :complete %>
+        <%= f.label :complete %>
+    </div>
+  <% end %>
   <br>
   <div class="left">
       <%= f.submit class: "btn btn-primary btn-info"%>
