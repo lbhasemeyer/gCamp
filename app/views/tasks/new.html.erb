@@ -2,7 +2,16 @@
   <h1>New task</h1>
 
   <%= render 'form' %>
-  
+
+<%= form_for(@task) do |f| %>
+  <div class="form-group col-sm-offset-1 col-sm-11">
+    <div class="left">
+      <br>
+      <%= f.submit "Create Task", class: "btn btn-primary"%>
+    </div>
+  </div>
+<% end %>
+
 <br>
 <br>
 <br>
