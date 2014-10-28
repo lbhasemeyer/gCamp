@@ -1,0 +1,57 @@
+<%= form_for(@user) do |t| %>
+
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+<div class="container">
+  <br>
+
+  <div class="form-group">
+      <%= t.label :first_name, class: "col-sm-1" %>
+    <div class="col-sm-4">
+      <%= t.text_field :first_name, class: "col-sm-3 form-control" %>
+    </div>
+  </div>
+
+  <br>
+  <br>
+
+  <div class="form-group">
+      <%= t.label :last_name, class: "col-sm-1" %>
+    <div class="col-sm-4">
+      <%= t.text_field :last_name, class: "col-sm-3 form-control" %>
+    </div>
+  </div>
+
+  <br>
+  <br>
+
+  <div class="form-group">
+      <%= t.label :email, class: "col-sm-1 control-label" %>
+    <div class="col-sm-4">
+      <%= t.email_field :email, class: "col-sm-3 form-control" %>
+    </div>
+  </div>
+
+  <br>
+  <br>
+
+  <div class="form-group col-sm-offset-1 col-sm-5">
+      <%= t.submit "Create User", class: "btn btn-primary"%>
+  </div>
+
+  <br>
+  <br>
+
+</div>
+
+<% end %>
