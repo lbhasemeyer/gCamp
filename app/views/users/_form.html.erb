@@ -46,4 +46,8 @@
       <%= t.submit class: "btn btn-primary btn-info"%>
   </div>
 
+  <% if @user.id %>
+        <%= link_to 'Delete User', user_path, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+  <% end %>
+
 <% end %>
