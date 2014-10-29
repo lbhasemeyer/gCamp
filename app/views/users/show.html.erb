@@ -1,0 +1,30 @@
+<strong><p id="notice" class="text-center"><%= notice %></p></strong>
+
+<h1><%= @user.first_name %> <%= @user.last_name %>
+<%= link_to 'Edit', edit_user_path(@user), class: "btn btn-primary pull-right" %> </h1>
+
+<br>
+<br>
+
+<div class="container">
+  <dl class="dl-horizontal">
+
+    <dt>First Name:</dt>
+    <dd><%= @user.first_name %></dd>
+
+    <dt>Last Name:</dt>
+    <dd><%= @user.last_name %></dd>
+
+    <dt>Email:</dt>
+    <dd><%= mail_to @user.email %></dd>
+
+  </dl>
+</div>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
