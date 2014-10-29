@@ -2,7 +2,8 @@
 
   <% if @user.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <h2><%= pluralize(@user.errors.count, "error") %>
+          prohibited this user from being saved:</h2>
       <ul>
         <% @user.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -50,12 +51,12 @@
 
   <br>
   <br>
-  <br>
 
   <div class="form-group">
     <% if @user.id %>
       <div class="col-sm-offset-1 col-sm-4 well">
-            <%= link_to 'Delete User', user_path, method: :delete, data: { confirm: 'Are you sure?' },
+            <%= link_to 'Delete User', user_path, method: :delete,
+            data: { confirm: 'Are you sure?' },
             class: "btn btn-danger center-block" %>
       </div>
     <% end %>
