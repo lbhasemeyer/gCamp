@@ -1,0 +1,33 @@
+<strong><p id="notice" class="text-center"><%= notice %></p></strong>
+
+
+<div class= "container tasks_page">
+
+    <h1>Projects
+        &nbsp
+        <%= link_to 'Create Project', new_project_path, class: "btn btn-primary pull-right"  %></h1>
+
+  <hr>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @projects.each do |project| %>
+      <tr>
+        <td><%= link_to (project.name), project_path(project) %></td>
+      </tr>
+      <% end %>
+    </tbody>
+
+  </table>
+
+  <br>
+  <br>
+  <br>
+  <br>
+
+</div>

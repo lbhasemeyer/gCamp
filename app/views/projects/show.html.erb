@@ -1,0 +1,22 @@
+<strong><p id="notice" class="text-center"><%= notice %></p></strong>
+
+<br>
+<br>
+
+<div class="container">
+
+    <h1><%= @project.name %>
+      <div class= "btn-toolbar pull-right">
+      <%= link_to 'Destroy', @project, method: :delete, date: { confirm: 'Are you sure?' }, class: "btn btn-danger pull-right" %>
+      <%= link_to 'Edit', edit_project_path(@project), class: "btn btn-primary pull-right" %></h1>
+    </div>
+
+</div>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
