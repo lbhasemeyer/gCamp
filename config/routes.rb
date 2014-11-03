@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   get "/terms" => "pages#terms", as: :terms
   get "/FAQ" => "pages#faq", as: :faq
 
+  get "/signup" => "registrations#new", as: :signup
+  post "/signup" => "registrations#create"
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
