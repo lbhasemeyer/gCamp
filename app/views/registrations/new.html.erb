@@ -1,16 +1,44 @@
-Sign Up for gCamp!
+<h1>Sign Up for gCamp!</h1>
 
 <%= form_for @user, url: signup_path do |f| %>
 
-<%= f.label :email %>
-<%= f.email_field :email %>
+    <% if @user.errors.present? %>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
 
-<%= f.label :password %>
-<%= f.password_field :password %>
+  <div class="form-group">
+      <%= f.label :email, class: "col-sm-4" %>
+    <div class="col-sm-6">
+      <%= f.email_field :email, class: "col-sm-4 form-control" %>
+    </div>
+  </div>
 
-<%= f.label :password_confirmation %>
-<%= f.password_field :password_confirmation %>
+  <div class="form-group">
+    <%= f.label :password, class: "col-sm-4" %>
+    <div class="col-sm-6">
+    <%= f.password_field :password, class: "col-sm-4 form-control" %>
+    </div>
+  </div>
 
-<%= f.submit 'Sign Up' %>
+  <div class="form-group">
+      <%= f.label :password_confirmation, class: "col-sm-4" %>
+      <div class="col-sm-6">
+        <%= f.password_field :password_confirmation, class: "col-sm-4 form-control" %>
+      </div>
+  </div>
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+    <%= f.submit 'Sign Up', class: "btn, btn-primary" %>
+
 
 <% end %>

@@ -19,7 +19,13 @@
         <div class="container">
           <div class="navbar-header">
               <font size="5"><%= link_to "gCamp", root_path, id: "gCamp" %></font>
-              <%= link_to "Sign Up", signup_path %>
+                  <% if current_user %>
+                    <%= link_to "Sign Out", signout_path %>
+                  <% else %>
+                    <%= link_to "Sign Up", signup_path %>
+                    |
+                    <%= link_to "Sign In", signin_path %>
+                  <% end %>
           </div>
         </div>
       </div>
