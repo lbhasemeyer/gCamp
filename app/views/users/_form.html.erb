@@ -34,9 +34,29 @@
   <br>
 
   <div class="form-group">
-      <%= t.label :email, class: "col-sm-1 control-label" %>
+      <%= t.label :email, class: "col-sm-1" %>
     <div class="col-sm-4">
       <%= t.email_field :email, class: "col-sm-3 form-control" %>
+    </div>
+  </div>
+
+  <br>
+  <br>
+
+  <div class="form-group">
+      <%= t.label :password, class: "col-sm-1" %>
+    <div class="col-sm-4">
+      <%= t.password_field :password, class: "col-sm-3 form-control" %>
+    </div>
+  </div>
+
+  <br>
+  <br>
+
+  <div class="form-group">
+      <%= t.label :password_confirmation, class: "col-sm-1" %>
+    <div class="col-sm-4">
+      <%= t.password_field :password_confirmation, class: "col-sm-3 form-control" %>
     </div>
   </div>
 

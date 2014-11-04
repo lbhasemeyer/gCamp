@@ -1,44 +1,58 @@
-<h1>Sign Up for gCamp!</h1>
+<div class="well col-md-6 col-md-offset-3">
+  <%= form_for @user, url: signup_path do |f| %>
 
-<%= form_for @user, url: signup_path do |f| %>
+  <h1>Sign Up for gCamp!</h1>
 
-    <% if @user.errors.present? %>
-      <ul class= "list list-unstyled text-danger">
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    <% end %>
+  <br>
 
-  <div class="form-group">
-      <%= f.label :email, class: "col-sm-4" %>
-    <div class="col-sm-6">
-      <%= f.email_field :email, class: "col-sm-4 form-control" %>
-    </div>
+  <% if @user.errors.present? %>
+    <ul class= "list list-unstyled text-danger">
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+
+  <div>
+    <%= f.label :first_name, class: "no-padding" %>
+  </div>
+  <div>
+    <%= f.text_field :first_name, class: "col-sm-4 form-control" %>
   </div>
 
-  <div class="form-group">
-    <%= f.label :password, class: "col-sm-4" %>
-    <div class="col-sm-6">
+  <div>
+    <%= f.label :last_name, class: "no-padding" %>
+  </div>
+  <div>
+    <%= f.text_field :last_name, class: "col-sm-4 form-control" %>
+  </div>
+
+  <div>
+    <%= f.label :email, class: "no-padding" %>
+  </div>
+  <div>
+    <%= f.email_field :email, class: "col-sm-4 form-control" %>
+  </div>
+
+  <div>
+    <%= f.label :password, class: "no-padding" %>
+  </div>
+  <div>
     <%= f.password_field :password, class: "col-sm-4 form-control" %>
-    </div>
   </div>
 
-  <div class="form-group">
-      <%= f.label :password_confirmation, class: "col-sm-4" %>
-      <div class="col-sm-6">
-        <%= f.password_field :password_confirmation, class: "col-sm-4 form-control" %>
-      </div>
+  <div>
+    <%= f.label :password_confirmation, class: "no-padding" %>
+  </div>
+  <div>
+    <%= f.password_field :password_confirmation, class: "col-sm-4 form-control" %>
   </div>
 
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
+  <div>
+    <%= f.submit 'Sign Up', class: "auth-button btn btn-primary col-sm-2" %>
+  </div>
 
-    <%= f.submit 'Sign Up', class: "btn btn-primary" %>
-
+</div>
 
 <% end %>
