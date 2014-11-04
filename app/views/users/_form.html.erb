@@ -12,19 +12,21 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-        <%= t.label :first_name, class: "col-sm-1" %>
+
+<form class="form-horizontal">
+
+    <div class="control-group">
+        <%= t.label :first_name, class: "col-sm-2" %>
       <div class="col-sm-4">
         <%= t.text_field :first_name, class: "col-sm-3 form-control" %>
       </div>
-  </div>
+    </div>
 
   <br>
   <br>
-  <br>
 
-  <div class="form-group">
-      <%= t.label :last_name, class: "col-sm-1" %>
+  <div class="control-group">
+      <%= t.label :last_name, class: "col-sm-2" %>
     <div class="col-sm-4">
       <%= t.text_field :last_name, class: "col-sm-3 form-control" %>
     </div>
@@ -33,8 +35,8 @@
   <br>
   <br>
 
-  <div class="form-group">
-      <%= t.label :email, class: "col-sm-1" %>
+  <div class="control-group">
+      <%= t.label :email, class: "col-sm-2" %>
     <div class="col-sm-4">
       <%= t.email_field :email, class: "col-sm-3 form-control" %>
     </div>
@@ -43,8 +45,8 @@
   <br>
   <br>
 
-  <div class="form-group">
-      <%= t.label :password, class: "col-sm-1" %>
+  <div class="control-group">
+      <%= t.label :password, class: "col-sm-2" %>
     <div class="col-sm-4">
       <%= t.password_field :password, class: "col-sm-3 form-control" %>
     </div>
@@ -53,8 +55,8 @@
   <br>
   <br>
 
-  <div class="form-group">
-      <%= t.label :password_confirmation, class: "col-sm-1" %>
+  <div class="control-group">
+      <%= t.label :password_confirmation, class: "col-sm-2" %>
     <div class="col-sm-4">
       <%= t.password_field :password_confirmation, class: "col-sm-3 form-control" %>
     </div>
@@ -63,8 +65,8 @@
   <br>
   <br>
 
-  <div class="form-group">
-    <div class="col-sm-offset-1 col-sm-11">
+  <div class="control-group">
+    <div class="col-sm-offset-2 col-sm-11">
         <%= t.submit class: "btn btn-primary btn-info"%>
     </div>
   </div>
@@ -72,7 +74,7 @@
   <br>
   <br>
 
-  <div class="form-group">
+  <div class="control-group">
     <% if @user.id %>
       <div class="col-sm-offset-1 col-sm-4 well">
             <%= link_to 'Delete User', user_path, method: :delete,
@@ -82,5 +84,6 @@
     <% end %>
   </div>
 
+</form>
 
 <% end %>
