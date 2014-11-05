@@ -16,12 +16,15 @@ require 'rails_helper'
     expect(current_path).to eq root_path
     expect(page).to have_content("Babe Ruth")
     expect(page).to have_content("Sign Out")
+    expect(page).to have_no_content("Sign In")
+    expect(page).to have_no_content("Sign Up")
 
     click_on "Babe Ruth"
     expect(page).to have_content("Babe Ruth")
     expect(page).to have_content("First Name: Babe")
     expect(page).to have_content("Last Name: Ruth")
     expect(page).to have_content("Email: babe@ruth.com")
+
   end
 
 end

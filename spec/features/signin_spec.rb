@@ -12,11 +12,11 @@ feature "signin" do
     fill_in "Email", with: "mr@bean.com"
     fill_in "Password", with: "bean"
     click_button "Sign in"
+    expect(current_path).to eq root_path
     expect(page).to have_content("Mr Bean")
     expect(page).to have_content("Sign Out")
     expect(page).to have_no_content("Sign In")
     expect(page).to have_no_content("Sign Up")
-    expect(current_path).to eq root_path
 
     click_on "Mr Bean"
     expect(page).to have_content("Mr Bean")
