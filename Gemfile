@@ -41,5 +41,10 @@ gem 'bcrypt', '~> 3.1.7'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-
 gem "i18n"
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem "capybara"
+  gem 'launchy'
+end
