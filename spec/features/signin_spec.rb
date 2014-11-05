@@ -16,7 +16,7 @@ feature "signin" do
     expect(page).to have_content("Sign Out")
     expect(page).to have_no_content("Sign In")
     expect(page).to have_no_content("Sign Up")
-
+    expect(current_path).to eq root_path
 
     click_on "Mr Bean"
     expect(page).to have_content("Mr Bean")
