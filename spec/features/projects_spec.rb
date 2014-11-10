@@ -6,6 +6,9 @@ require 'rails_helper'
       click_on "Projects"
       expect(page).to have_no_content("Food Fortress")
       click_on "Create Project"
+      click_on "Create Project"
+      expect(page).to have_content("Name can't be blank")
+
       fill_in "Name", with: "Food Fortress"
       click_button "Create Project"
       expect(page).to have_content("Project was successfully created")

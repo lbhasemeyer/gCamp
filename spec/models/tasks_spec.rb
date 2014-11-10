@@ -11,4 +11,14 @@ describe Task do
     expect(task.valid?).to be(true)
   end
 
+  it 'verifies date is today or after' do
+    task = Task.new
+    task.description = 'Eat Cheetos'
+    expect(task.valid?).to be(false)
+    task.due_date = '12/12/2024'
+    expect(task.valid?).to be(true)
+    task.due_date = '10/12/2001'
+    expect(task.valid?).to be(false)
+  end
+
 end

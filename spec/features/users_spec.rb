@@ -6,6 +6,12 @@ require 'rails_helper'
       click_on "Users"
       expect(page).to have_no_content("Ron Burgundy")
       click_on "Create User"
+      click_on "Create User"
+      expect(page).to have_content("First name can't be blank")
+      expect(page).to have_content("Last name can't be blank")
+      expect(page).to have_content("Email can't be blank")
+      expect(page).to have_content("Password can't be blank")
+
       fill_in "First name", with: "Ron"
       fill_in "Last name", with: "Burgundy"
       fill_in "Email", with: "anchor@man.com"

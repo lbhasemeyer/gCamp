@@ -7,6 +7,10 @@ require 'rails_helper'
       click_on "All"
       expect(page).to have_no_content("Shampoo Carpet")
       click_on "Create Task"
+      click_button "Create Task"
+      expect(page).to have_content("Description can't be blank")
+
+
       fill_in "Description", with: "Shampoo Carpet"
       fill_in "Due date", with: "12/12/2014"
       click_button "Create Task"
@@ -18,7 +22,7 @@ require 'rails_helper'
       expect(page).to have_content("Shampoo Carpet")
       expect(page).to have_content("False")
       expect(page).to have_content("12/12/2014")
-      
+
       click_on "Edit"
       expect(page).to have_content("Edit task")
       fill_in "Description", with: "Eat Marshmallow"
