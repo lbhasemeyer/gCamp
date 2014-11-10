@@ -2,14 +2,14 @@
 
 
 <div class= "container tasks_page">
-
-    <h1>Projects
+  <table class="table">
+        <h1>Projects
         &nbsp
         <%= link_to 'Create Project', new_project_path, class: "btn btn-primary pull-right"  %></h1>
 
   <hr>
 
-<table class="table">
+  <table class="table">
     <thead>
       <tr>
         <th>Name</th>
@@ -22,7 +22,6 @@
       </tr>
       <% end %>
     </tbody>
-
   </table>
 
   <br>

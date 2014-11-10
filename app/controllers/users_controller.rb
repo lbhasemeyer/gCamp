@@ -27,17 +27,13 @@ class UsersController < ApplicationController
   end
 
   def update
-    respond_to do |format|
       @user.update(user_params)
-      format.html { redirect_to users_url, notice: 'User was successfully updated.' }
-    end
+      redirect_to users_url, notice: 'User was successfully updated.'
   end
 
   def destroy
     @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully deleted.' }
-    end
+    redirect_to users_url, notice: 'User was successfully deleted.'
   end
 
   private
