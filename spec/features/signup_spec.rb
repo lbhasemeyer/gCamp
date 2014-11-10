@@ -7,6 +7,7 @@ require 'rails_helper'
     click_button "Sign Up"
     expect(page).to have_content("Email can't be blank")
     expect(page).to have_content("Password can't be blank")
+
     fill_in "First name", with: "Babe"
     fill_in "Last name", with: "Ruth"
     fill_in "Email", with: "babe@ruth.com"

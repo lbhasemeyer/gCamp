@@ -9,6 +9,7 @@ feature "signin" do
     click_on "Sign In"
     click_button "Sign in"
     expect(page).to have_content("Username / password combination is invalid")
+
     fill_in "Email", with: "mr@bean.com"
     fill_in "Password", with: "bean"
     click_button "Sign in"

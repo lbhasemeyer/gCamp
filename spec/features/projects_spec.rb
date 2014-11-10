@@ -24,6 +24,6 @@ require 'rails_helper'
 
       click_on "Destroy"
       expect(page).to have_no_content("Catch Popcorn in Mouth")
-
   end
+
 end
