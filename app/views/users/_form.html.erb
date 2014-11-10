@@ -1,17 +1,19 @@
-<%= form_for(@user, html: {class: "form-horizontal"}) do |t| %>
+<form class="form-horizontal">
+<%= form_for @user do |t| %>
 
   <% if @user.errors.any? %>
-    <div class="alert alert-danger" role="alert">
-      <p><strong><%= pluralize(@user.errors.count, "error") %>
-          prohibited this user from being saved:</strong></p>
-      <ul>
-        <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-        <% end %>
-      </ul>
+    <div class="form-group">
+      <div class="col-sm-offset-1 col-sm-6 alert alert-danger" role="alert">
+        <p><strong><%= pluralize(@user.errors.count, "error") %>
+            prohibited this user from being saved:</strong></p>
+        <ul>
+          <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
-
 
   <div class="form-group">
       <label class="col-sm-2 control-label"><%= t.label :first_name %></label>
@@ -65,3 +67,4 @@
   </div>
 
 <% end %>
+</form>

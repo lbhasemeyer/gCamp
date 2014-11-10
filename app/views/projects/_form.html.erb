@@ -1,14 +1,17 @@
-<%= form_for(@project) do |t| %>
+<form class="form-horizontal">
+<%= form_for @project do |t| %>
 
 <% if @project.errors.any? %>
-  <div class="alert alert-danger" role="alert">
-    <p><strong><%= pluralize(@project.errors.count, "error") %>
+  <div class="form-group">
+    <div class="col-sm-offset-1 col-sm-6 alert alert-danger" width="50%" role="alert">
+      <p><strong><%= pluralize(@project.errors.count, "error") %>
         prohibited this project from being saved:</strong></p>
-    <ul>
-      <% @project.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-      <% end %>
-    </ul>
+        <ul>
+        <% @project.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 <% end %>
 
@@ -19,9 +22,6 @@
   </div>
 </div>
 
-<br>
-<br>
-
 <div class="form-group">
   <div class="col-sm-offset-1 col-sm-11">
     <%= t.submit class: "btn btn-primary btn-info"  %>
@@ -29,6 +29,7 @@
 </div>
 
 <% end %>
+</form>
 
 <br>
 <br>
