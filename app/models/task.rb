@@ -1,5 +1,6 @@
 class Task < ActiveRecord::Base
 
   validates :description, presence: true
-  validates_datetime :starts_at, :after => :now
+  validates :due_date, presence: true
+
 end

@@ -18,7 +18,7 @@ require 'rails_helper'
       expect(page).to have_content("Shampoo Carpet")
       expect(page).to have_content("False")
       expect(page).to have_content("12/12/2014")
-
+      
       click_on "Edit"
       expect(page).to have_content("Edit task")
       fill_in "Description", with: "Eat Marshmallow"
