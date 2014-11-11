@@ -1,35 +1,36 @@
-<form class="form-horizontal">
-<%= form_for @project do |t| %>
+<%= form_for(@project, html: {class: "form-horizontal"}) do |t| %>
 
-<% if @project.errors.any? %>
+  <% if @project.errors.any? %>
+    <br>
+    <div class="form-group">
+      <div class="form-group">
+        <div class="col-sm-offset-1 col-sm-4 alert alert-danger" role="alert">
+          <p><strong><%= pluralize(@project.errors.count, "error") %>
+              prohibited this project from being saved:</strong></p>
+          <ul>
+            <% @project.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
   <div class="form-group">
-    <div class="col-sm-offset-1 col-sm-6 alert alert-danger" width="50%" role="alert">
-      <p><strong><%= pluralize(@project.errors.count, "error") %>
-        prohibited this project from being saved:</strong></p>
-        <ul>
-        <% @project.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-        <% end %>
-      </ul>
+      <%= t.label :name, class: "col-sm-1 control-label" %>
+    <div class="col-sm-4">
+      <%= t.text_field :name, class: "col-sm-3 form-control" %>
     </div>
   </div>
-<% end %>
 
-<div class="form-group">
-    <%= t.label :name, class: "col-sm-1" %>
-  <div class="col-sm-4">
-    <%= t.text_field :name, class: "col-sm-3 form-control" %>
+  <div class="form-group">
+    <div class="col-sm-offset-1 col-sm-11">
+      <%= t.submit class: "btn btn-primary btn-info"  %>
+    </div>
   </div>
-</div>
-
-<div class="form-group">
-  <div class="col-sm-offset-1 col-sm-11">
-    <%= t.submit class: "btn btn-primary btn-info"  %>
-  </div>
-</div>
 
 <% end %>
-</form>
 
 <br>
 <br>

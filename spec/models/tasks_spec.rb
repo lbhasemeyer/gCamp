@@ -7,7 +7,7 @@ describe Task do
     expect(task.valid?).to be(false)
     task.description = 'Eat Cheetos'
     expect(task.valid?).to be(false)
-    task.due_date = '12/12/2014'
+    task.due_date = '12/12/3014'
     expect(task.valid?).to be(true)
   end
 
@@ -15,10 +15,20 @@ describe Task do
     task = Task.new
     task.description = 'Eat Cheetos'
     expect(task.valid?).to be(false)
-    task.due_date = '12/12/2024'
+    task.due_date = '12/12/3024'
     expect(task.valid?).to be(true)
     task.due_date = '10/12/2001'
     expect(task.valid?).to be(false)
   end
+
+  it 'verifies users can update a task whose due date is in the past' do
+    task = Task.new
+    task.description = 'Eat Cheetos'
+    task.due_date = '12/12/2001'
+    expect(task.valid?).to be(true)
+    task.due_date = '10/12/2001'
+    expect(task.valid?).to be(false)
+  end
+
 
 end

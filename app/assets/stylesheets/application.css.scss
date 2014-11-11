@@ -35,11 +35,6 @@ h2, h3 {
   padding-right: 0px;
 }
 
-.col-sm-1 {
-   padding: 0 !important;
-   margin: 0 !important;
-}
-
 p#notice {
   background-color: lightgreen;
   width: 103%
@@ -57,4 +52,8 @@ p#notice {
 ul.navbar-brand {
   a {color: white;
   }
+}
+
+.alert.alert-danger {
+  margin-left: 125px;
 }
