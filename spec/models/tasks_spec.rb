@@ -22,16 +22,16 @@ describe Task do
 
   it 'verifies users can update a task whose due date is in the past' do
     travel_to 1.year.ago do
-      Task.create(
+      task = Task.new(
         :description => 'Eat Cheetos',
         :due_date => Date.today,
         )
     end
-    expect(Task.valid?).to be(true)
+    expect(task.valid?).to be(true)
     task.due_date = '10/12/2001'
-    expect(Task.valid?).to be(true)
+    expect(task.valid?).to be(true)
     task.due_date = '10/12/3001'
-    expect(Task.valid?).to be(true)
+    expect(task.valid?).to be(true)
   end
 
 
