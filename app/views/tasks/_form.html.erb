@@ -3,7 +3,7 @@
   <% if @task.errors.any? %>
     <br>
     <div class="form-group">
-      <div class="col-sm-offset-1 col-sm-4 alert alert-danger" role="alert">
+      <div class="col-sm-offset-1 col-sm-4 alert alert-danger task" role="alert">
         <p><strong><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</strong></p>
         <ul>
         <% @task.errors.full_messages.each do |message| %>

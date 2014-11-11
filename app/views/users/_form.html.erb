@@ -2,7 +2,7 @@
 
   <% if @user.errors.any? %>
     <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-4 alert alert-danger" role="alert">
+      <div class="col-sm-offset-2 col-sm-4 alert alert-danger user" role="alert">
         <p><strong><%= pluralize(@user.errors.count, "error") %>
             prohibited this user from being saved:</strong></p>
         <ul>
