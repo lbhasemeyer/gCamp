@@ -32,6 +32,10 @@ describe Task do
     expect(task.valid?).to be(true)
     task.due_date = '10/12/3001'
     expect(task.valid?).to be(true)
+    task.description = 'Find Pig'
+    expect(task.valid?).to be(true)
+    task.complete = "true"
+    expect(task.valid?).to be(true)
   end
 
 end
