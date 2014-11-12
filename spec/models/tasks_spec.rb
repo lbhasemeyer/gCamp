@@ -19,13 +19,13 @@ describe Task do
   end
 
   include ActiveSupport::Testing::TimeHelpers
-
   it 'verifies users can update a task whose due date is in the past' do
+    task=Task.new
     travel_to 1.year.ago do
-      task = Task.create(
-        description: 'Eat Cheetos',
-        due_date: Date.today,
-        )
+        task.description= 'Eat Cheetos'
+        task.due_date= Date.today
+        expect(task.valid?).to be(true)
+        task.save
     end
     expect(task.valid?).to be(true)
     task.due_date = '10/12/2001'
@@ -33,6 +33,5 @@ describe Task do
     task.due_date = '10/12/3001'
     expect(task.valid?).to be(true)
   end
-
 
 end
