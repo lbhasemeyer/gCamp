@@ -18,21 +18,4 @@ describe Task do
     expect(task.valid?).to be(true)
   end
 
-  include ActiveSupport::Testing::TimeHelpers
-
-  it 'verifies users can update a task whose due date is in the past' do
-    travel_to 1.year.ago do
-      task = Task.new(
-        :description => 'Eat Cheetos',
-        :due_date => Date.today,
-        )
-    end
-    expect(task.valid?).to be(true)
-    task.due_date = '10/12/2001'
-    expect(task.valid?).to be(true)
-    task.due_date = '10/12/3001'
-    expect(task.valid?).to be(true)
-  end
-
-
 end
