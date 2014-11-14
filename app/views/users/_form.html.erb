@@ -1,47 +1,47 @@
-<%= form_for(@user, html: {class: "form-horizontal"}) do |t| %>
+<%= form_for(@user, html: {class: "form-horizontal"}) do |f| %>
 
   <h1><%= title %></h1>
 
   <%= render "shared/errors", error_for: @user %>
 
   <div class="form-group">
-      <label class="col-sm-2 control-label"><%= t.label :first_name %></label>
+      <label class="col-sm-2 control-label"><%= f.label :first_name %></label>
     <div class="col-sm-4">
-      <%= t.text_field :first_name, class: "col-sm-3 form-control" %>
+      <%= f.text_field :first_name, class: "col-sm-3 form-control" %>
     </div>
   </div>
 
   <div class="form-group">
-      <label class="col-sm-2 control-label"><%= t.label :last_name %></label>
+      <label class="col-sm-2 control-label"><%= f.label :last_name %></label>
     <div class="col-sm-4">
-      <%= t.text_field :last_name, class: "col-sm-3 form-control" %>
+      <%= f.text_field :last_name, class: "col-sm-3 form-control" %>
     </div>
   </div>
 
   <div class="form-group">
-      <label class="col-sm-2 control-label"><%= t.label :email %></label>
+      <label class="col-sm-2 control-label"><%= f.label :email %></label>
     <div class="col-sm-4">
-      <%= t.email_field :email, class: "col-sm-3 form-control" %>
+      <%= f.email_field :email, class: "col-sm-3 form-control" %>
     </div>
   </div>
 
   <div class="form-group">
-      <label class="col-sm-2 control-label"><%= t.label :password %></label>
+      <label class="col-sm-2 control-label"><%= f.label :password %></label>
     <div class="col-sm-4">
-      <%= t.password_field :password, class: "col-sm-3 form-control" %>
+      <%= f.password_field :password, class: "col-sm-3 form-control" %>
     </div>
   </div>
 
   <div class="form-group">
-      <label class="col-sm-2 control-label"><%= t.label :password_confirmation %></label>
+      <label class="col-sm-2 control-label"><%= f.label :password_confirmation %></label>
     <div class="col-sm-4">
-      <%= t.password_field :password_confirmation, class: "col-sm-3 form-control" %>
+      <%= f.password_field :password_confirmation, class: "col-sm-3 form-control" %>
     </div>
   </div>
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-5">
-        <%= t.submit class: "btn btn-primary"%>
+        <%= f.submit class: "btn btn-primary"%>
     </div>
   </div>
 

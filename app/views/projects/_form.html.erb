@@ -1,19 +1,19 @@
-<%= form_for(@project, html: {class: "form-horizontal"}) do |t| %>
+<%= form_for(@project, html: {class: "form-horizontal"}) do |f| %>
 
   <h1><%= title %></h1>
 
   <%= render "shared/errors", error_for: @project %>
 
   <div class="form-group">
-      <%= t.label :name, class: "col-sm-1 control-label" %>
+      <%= f.label :name, class: "col-sm-1 control-label" %>
     <div class="col-sm-4">
-      <%= t.text_field :name, class: "form-control" %>
+      <%= f.text_field :name, class: "form-control" %>
     </div>
   </div>
 
   <div class="form-group">
     <div class="col-sm-offset-1 col-sm-11">
-      <%= t.submit class: "btn btn-primary btn-info"  %>
+      <%= f.submit class: "btn btn-primary btn-info"  %>
     </div>
   </div>
 
