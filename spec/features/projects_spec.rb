@@ -3,7 +3,7 @@ require 'rails_helper'
   feature "projects" do
     scenario "User creates a project" do
       visit root_path
-      click_on "Projects"
+      click_on("Projects", match: :first)
       expect(page).to have_no_content("Food Fortress")
       click_on "Create Project"
       click_on "Create Project"
@@ -14,7 +14,7 @@ require 'rails_helper'
       expect(page).to have_content("Project was successfully created")
       expect(page).to have_content("Food Fortress")
 
-      click_on "Projects"
+      click_on("Projects", match: :first)
       expect(page).to have_content("Food Fortress")
       click_on "Food Fortress"
 
