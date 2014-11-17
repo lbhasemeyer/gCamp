@@ -3,59 +3,65 @@
 
 <div class= "container tasks_page">
   <table class="table">
-    <h1>Tasks
+    <h1>Tasks for <%= @project.name %>
       <div class="pull-right">
         <% if params[:filter_by] == "all" %>
           All
           |
-          <%= link_to "Incomplete", tasks_path(filter_by: "incomplete") %>
+          <%= link_to "Incomplete", project_tasks_path(filter_by: "incomplete") %>
         <% else %>
-          <%= link_to "All", tasks_path(filter_by: "all") %>
+          <%= link_to "All", project_tasks_path(filter_by: "all") %>
           |
           Incomplete
         <% end %>
         &nbsp
-        <%= link_to 'Create Task', new_task_path, class: "btn btn-primary pull-right" %>
+        <%= link_to 'Create Task', new_project_task_path, class: "btn btn-primary pull-right" %>
       </div>
     </h1>
 
-    <hr>
+  <ol class="breadcrumb task_index">
+    <li><a href="#"><%= link_to "Projects", projects_path %></a></li>
+    <li><a href="#"><%= link_to @project.name, project_path(@project) %></a></li>
+    <li class="active">Tasks</li>
+  </ol>
 
-<table class="table">
-    <thead>
-      <tr>
-        <th>Description</th>
-        <th>Complete</th>
-        <th>Due Date</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @tasks.each do |task| %>
+      <hr>
+
+  <table class="table">
+      <thead>
         <tr>
-          <td><%= task.description %></td>
-          <td><% if task.complete %>
-                True
-              <% else %>
-                False
-              <% end %>
-          </td>
-          <td>
-            <% if task.due_date %>
-              <%= task.due_date.strftime('%m/%d/%Y') %>
-              <% else nil %>
-              <% end %>
-            </td>
-          <td>
-            <div class= "btn-toolbar pull-right">
-              <%= link_to 'Show', task, class: "btn btn-success" %>
-              <%= link_to 'Edit', edit_task_path(task), class: "btn btn-info" %>
-              <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
-            </div>
-          </td>
+          <th>Description</th>
+          <th>Complete</th>
+          <th>Due Date</th>
+          <th></th>
         </tr>
-      <% end %>
-    </tbody>
+      </thead>
+      <tbody>
+        <% @project.tasks.each do |task| %>
+          <tr>
+            <td><%= task.description %></td>
+            <td><% if task.complete %>
+                  True
+                <% else %>
+                  False
+                <% end %>
+            </td>
+            <td>
+              <% if task.due_date %>
+                <%= task.due_date.strftime('%m/%d/%Y') %>
+                <% else nil %>
+                <% end %>
+              </td>
+            <td>
+              <div class= "btn-toolbar pull-right">
+                <%= link_to 'Show', project_task_path(@project, task), class: "btn btn-success" %>
+                <%= link_to 'Edit', edit_project_task_path(@project, task), class: "btn btn-info" %>
+                <%= link_to 'Destroy', project_task_path(@project, task), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
 
   </table>
 
