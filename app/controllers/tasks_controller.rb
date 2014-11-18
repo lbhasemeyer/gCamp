@@ -10,9 +10,9 @@ class TasksController < ApplicationController
     if params[:filter_by] == "all"
       @tasks = @project.tasks
     elsif params[:filter_by] == "incomplete"
-      @tasks = Task.where(complete:false)
+      @tasks = @project.tasks.where(complete:false)
     else
-      @tasks = Task.where(complete:false)
+      @tasks = @project.tasks.where(complete:false)
     end
   end
 

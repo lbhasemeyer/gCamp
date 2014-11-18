@@ -10,15 +10,23 @@ require 'rails_helper'
       fill_in "Password", with: "pink"
       fill_in "Password confirmation", with: "pink"
       click_button "Sign Up"
+      expect(page).to have_content("Miss Piggy")
+      expect(page).to have_content("Sign Out")
       click_on "Sign Out"
       expect(current_path).to eq root_path
+      expect(page).to have_content("Sign Up")
+      expect(page).to have_content("Sign In")
 
       visit root_path
       click_on "Sign In"
       fill_in "Email", with: "love@kermie.com"
       fill_in "Password", with: "pink"
       click_button "Sign in"
+      expect(page).to have_content("Miss Piggy")
+      expect(page).to have_content("Sign Out")
       click_on "Sign Out"
+      expect(page).to have_content("Sign Up")
+      expect(page).to have_content("Sign In")
   end
 
 end

@@ -4,18 +4,22 @@ describe Task do
 
   it 'verifies entry of all fields' do
     task = Task.new
-    expect(task.valid?).to be(false)
+    task.valid?
+    expect(task.errors.present?).to eq(true)
     task.description = 'Eat Cheetos'
-    expect(task.valid?).to be(true)
-  end
+    task.valid?
+    expect(task.errors.present?).to eq(false)
+    end
 
   it 'verifies date is today or after' do
     task = Task.new
     task.description = 'Eat Cheetos'
     task.due_date = '10/12/2001'
-    expect(task.valid?).to be(false)
+    task.valid?
+    expect(task.errors.present?).to eq(true)
     task.due_date = '12/12/3024'
-    expect(task.valid?).to be(true)
+    task.valid?
+    expect(task.errors.present?).to eq(false)
   end
 
   include ActiveSupport::Testing::TimeHelpers
@@ -24,18 +28,25 @@ describe Task do
     travel_to 1.year.ago do
         task.description= 'Eat Cheetos'
         task.due_date= Date.today
+        task.valid?
+        expect(task.errors.present?).to eq(false)
         expect(task.valid?).to be(true)
         task.save
     end
-    expect(task.valid?).to be(true)
+    task.valid?
+    expect(task.errors.present?).to eq(false)
     task.due_date = '10/12/2001'
-    expect(task.valid?).to be(true)
+    task.valid?
+    expect(task.errors.present?).to eq(false)
     task.due_date = '10/12/3001'
-    expect(task.valid?).to be(true)
+    task.valid?
+    expect(task.errors.present?).to eq(false)
     task.description = 'Find Pig'
-    expect(task.valid?).to be(true)
+    task.valid?
+    expect(task.errors.present?).to eq(false)
     task.complete = "true"
-    expect(task.valid?).to be(true)
+    task.valid?
+    expect(task.errors.present?).to eq(false)
   end
 
 end

@@ -19,9 +19,15 @@
       </div>
     </h1>
 
+    <%= link_to "Incomplete", project_tasks_path(filter_by: "incomplete"),
+            {:class => ("active disabled" unless params[:filter_by]=="all")}%>|
+    <%= link_to "All", project_tasks_path(filter_by: "all"),
+            {:class => ("active disabled" if params[:filter_by]=="all")}%>
+
+
   <ol class="breadcrumb task_index">
-    <li><a href="#"><%= link_to "Projects", projects_path %></a></li>
-    <li><a href="#"><%= link_to @project.name, project_path(@project) %></a></li>
+    <li><%= link_to "Projects", projects_path %></li>
+    <li><%= link_to @project.name, project_path(@project) %></li>
     <li class="active">Tasks</li>
   </ol>
 
