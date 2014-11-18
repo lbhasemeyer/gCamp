@@ -4,8 +4,6 @@ class TasksController < ApplicationController
   end
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
-
-
   def index
     if params[:filter_by] == "all"
       @tasks = @project.tasks
