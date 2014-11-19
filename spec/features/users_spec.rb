@@ -18,7 +18,7 @@ require 'rails_helper'
       fill_in "Password", with: "sandiego"
       fill_in "Password confirmation", with: "sandiego"
       click_button "Create User"
-      expect(page).to have_content("User was successfully created")
+      expect(page).to have_content("User was successfully created.")
       expect(page).to have_content("Ron Burgundy")
       expect(page).to have_content("anchor@man.com")
 
@@ -30,7 +30,7 @@ require 'rails_helper'
       fill_in "Password", with: "ricky"
       fill_in "Password confirmation", with: "ricky"
       click_button "Update User"
-      expect(page).to have_content("User was successfully updated")
+      expect(page).to have_content("User was successfully updated.")
       expect(page).to have_content("Lucille Ball")
       expect(page).to have_content("ilove@lucy.com")
 
@@ -40,5 +40,5 @@ require 'rails_helper'
       expect(page).to have_no_content("Lucille Ball")
       expect(page).to have_no_content("ilove@lucy.com")
   end
-  
+
 end

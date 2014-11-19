@@ -38,6 +38,7 @@ require 'rails_helper'
       check 'Complete'
       click_button "Update Task"
       expect(page).to have_content("Task was successfully updated")
+      click_on "All"
       expect(page).to have_content("Eat Marshmallow")
       expect(page).to have_content("True")
       expect(page).to have_content("01/01/2015")
