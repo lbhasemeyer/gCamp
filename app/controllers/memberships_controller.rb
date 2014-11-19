@@ -42,7 +42,6 @@ class MembershipsController < ApplicationController
 
     private
 
-
     def membership_params
       params.require(:membership).permit(:title, :user_id)
     end
