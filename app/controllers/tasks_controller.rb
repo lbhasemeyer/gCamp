@@ -22,9 +22,6 @@ class TasksController < ApplicationController
     @task = @project.tasks.new
   end
 
-  def edit
-  end
-
   def create
     @task = @project.tasks.new(task_params)
     respond_to do |format|
@@ -36,6 +33,9 @@ class TasksController < ApplicationController
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def edit
   end
 
   def update

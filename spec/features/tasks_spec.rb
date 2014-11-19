@@ -7,7 +7,7 @@ require 'rails_helper'
         )
       visit root_path
       click_on "Projects"
-      click_on "0"
+      page.all(:link,"0")[1].click
       click_on "Create Task"
       click_button "Create Task"
       expect(page).to have_content("Description can't be blank")
@@ -19,7 +19,7 @@ require 'rails_helper'
         )
       visit root_path
       click_on "Projects"
-      click_on "0"
+      page.all(:link,"0")[1].click
       expect(page).to have_no_content("Food Fight")
       click_on "Create Task"
       fill_in "Description", with: "Food Fight"
