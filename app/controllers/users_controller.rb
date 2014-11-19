@@ -28,7 +28,11 @@ class UsersController < ApplicationController
 
   def update
       @user.update(user_params)
-      redirect_to users_url, notice: 'User was successfully updated.'
+      if @user.update(user_params)
+        redirect_to users_url, notice: 'Project was successfully created'
+      else
+        render :edit
+      end
   end
 
   def destroy
