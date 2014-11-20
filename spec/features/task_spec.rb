@@ -38,6 +38,7 @@ require 'rails_helper'
       check 'Complete'
       click_button "Update Task"
       expect(page).to have_content("Task was successfully updated")
+      expect(page).to have_no_content("Eat Marshmallow")
       click_on "All"
       expect(page).to have_content("Eat Marshmallow")
       expect(page).to have_content("True")
@@ -48,6 +49,32 @@ require 'rails_helper'
 
       click_on "Destroy"
       expect(page).to have_content("Task was successfully destroyed.")
+    end
+
+    scenario "Task All / Incomplete toggle works" do
+      project = Project.create!(
+        name: "Shampoo Carpet"
+        )
+      visit root_path
+      click_on "Projects"
+      page.all(:link,"0")[1].click
+      expect(page).to have_no_content("Food Fight")
+      click_on "Create Task"
+      fill_in "Description", with: "Ride Tricycle"
+      fill_in "Due date", with: "12/12/2016"
+      click_button "Create Task"
+      click_on "Edit"
+      expect(page).to have_content("Edit task")
+      check 'Complete'
+      click_button "Update Task"
+      click_on "Create Task"
+      fill_in "Description", with: "Use Stilts"
+      fill_in "Due date", with: "12/12/2016"
+      click_button "Create Task"
+      click_on "All"
+      expect(page).to have_content("Ride Tricycle")
+      click_on "Incomplete"
+      expect(page).to have_content("Use Stilts")
     end
 
 end

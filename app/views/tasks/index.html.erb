@@ -1,9 +1,7 @@
 <strong><p id="notice" class="text-center"><%= notice %></p></strong>
 
-
 <div class= "container tasks_page">
-  <table class="table">
-    <div class="page header">
+    <div class="page-header">
       <div class="pull-right">
         <% if params[:filter_by] == "all" %>
           All
@@ -18,7 +16,7 @@
         <%= link_to 'Create Task', new_project_task_path, class: "btn btn-primary pull-right" %>
       </div>
       <h1>Tasks for <%= @project.name %></h1>
-  </div>
+    </div>
 
   <ol class="breadcrumb task_index">
     <li><%= link_to "Projects", projects_path %></li>
@@ -71,5 +69,4 @@
     <br>
     <br>
 
-  </table>
 </div>
