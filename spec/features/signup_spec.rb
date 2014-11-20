@@ -8,11 +8,11 @@ require 'rails_helper'
     expect(page).to have_content("Email can't be blank")
     expect(page).to have_content("Password can't be blank")
 
-    fill_in "First name", with: "Babe"
-    fill_in "Last name", with: "Ruth"
+    fill_in "First Name", with: "Babe"
+    fill_in "Last Name", with: "Ruth"
     fill_in "Email", with: "babe@ruth.com"
     fill_in "Password", with: "baseball"
-    fill_in "Password confirmation", with: "baseball"
+    fill_in "Password Confirmation", with: "baseball"
     click_button "Sign Up"
     expect(current_path).to eq root_path
     expect(page).to have_content("Babe Ruth")

@@ -4,11 +4,11 @@ require 'rails_helper'
     scenario "User signs out of gCamp" do
       visit root_path
       click_on "Sign Up"
-      fill_in "First name", with: "Miss"
-      fill_in "Last name", with: "Piggy"
+      fill_in "First Name", with: "Miss"
+      fill_in "Last Name", with: "Piggy"
       fill_in "Email", with: "love@kermie.com"
       fill_in "Password", with: "pink"
-      fill_in "Password confirmation", with: "pink"
+      fill_in "Password Confirmation", with: "pink"
       click_button "Sign Up"
       expect(page).to have_content("Miss Piggy")
       expect(page).to have_content("Sign Out")
