@@ -3,7 +3,11 @@ require 'rails_helper'
 feature "signin" do
   scenario "User signs into gCamp" do
     User.create!(
-      first_name: "Mr", last_name: "Bean", email: "mr@bean.com", password: "bean", password_confirmation: "bean"
+      first_name: "Mr",
+      last_name: "Bean",
+      email: "mr@bean.com",
+      password: "bean",
+      password_confirmation: "bean"
       )
     visit root_path
     click_on "Sign In"
