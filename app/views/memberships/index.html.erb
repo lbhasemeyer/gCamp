@@ -24,8 +24,8 @@
         <%= f.label :user_id %>
         <%= f.collection_select :user_id, User.all, :id, :full_name,
                 {include_blank: "Please select a user..."}, {class: "form-control"} %>
-        <%= f.select :title, [["Member"], ["Owner"]],
-                {include_blank: false}, {class: "dropdown-toggle form-control"} %>
+        <%= f.select :title, [['Member', false],['Owner', true]], {include_blank: false}, 
+              {class: "dropdown-toggle form-control"} %>
         <%= f.submit "Add New Member", class: "btn btn-primary" %>
       <% end %>
     </div>

@@ -1,3 +1,47 @@
+class MembershipsController < ApplicationController
+  before_action do
+    @project = Project.find(params[:project_id])
+  end
+
+  def index
+    @membership = Membership.new
+    @memberships = @project.memberships
+  end
+
+  def create
+    @membership = Membership.new(allowed_params)
+    if @membership.save
+      redirect_to project_memberships_path, notice: "Membership was successfully created."
+    else
+      render :index
+    end
+  end
+
+  def update
+    membership = Membership.find(params[:id])
+    membership.update(allowed_params)
+    if membership.save
+      redirect_to project_memberships_path, notice: "Membership was successfully updated."
+    else
+      render :index
+    end
+  end
+
+  def destroy
+    membership = Membership.find(params[:id])
+    membership.destroy
+    redirect_to project_memberships_path, notice:  "Membership was successfully removed."
+  end
+
+  private
+
+  def allowed_params
+    params.require(:membership).permit(:user_id, :title).merge(:project_id => params[:project_id])
+  end
+end
+
+
+
 # class MembershipsController < ApplicationController
 #
 #   before_action do
@@ -47,46 +91,3 @@
 #     end
 #
 # end
-
-
-class MembershipsController < ApplicationController
-  before_action do
-    @project = Project.find(params[:project_id])
-  end
-
-  def index
-    @membership = Membership.new
-    @memberships = @project.memberships
-  end
-
-  def create
-    @membership = Membership.new(allowed_params)
-    if @membership.save
-      redirect_to project_memberships_path, notice: "Membership was successfully created."
-    else
-      render :index
-    end
-  end
-
-  def update
-    membership = Membership.find(params[:id])
-    membership.update(allowed_params)
-    if membership.save
-      redirect_to project_memberships_path, notice: "Membership was successfully updated."
-    else
-      render :index
-    end
-  end
-
-  def destroy
-    membership = Membership.find(params[:id])
-    membership.destroy
-    redirect_to project_memberships_path, notice:  "Membership was successfully removed."
-  end
-
-  private
-
-  def allowed_params
-    params.require(:membership).permit(:user_id, :title).merge(:project_id => params[:project_id])
-  end
-end
