@@ -1,10 +1,10 @@
-<% if error_for.errors.any? %>
+<% if object.errors.any? %>
   <br>
   <div class="form-group">
     <div class="col-sm-4 alert alert-danger" role="alert">
-      <p><strong><%= pluralize(error_for.errors.count, "error") %> prohibited this task from being saved:</strong></p>
+      <p><strong><%= pluralize(object.errors.count, "error") %> prohibited this task from being saved:</strong></p>
       <ul>
-        <% error_for.errors.full_messages.each do |message| %>
+        <% object.errors.full_messages.each do |message| %>
         <li><%= message %></li>
         <% end %>
       </ul>
