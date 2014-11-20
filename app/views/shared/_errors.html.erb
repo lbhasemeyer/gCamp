@@ -1,13 +1,11 @@
 <% if object.errors.any? %>
-  <br>
-  <div class="form-group">
-    <div class="col-sm-4 alert alert-danger" role="alert">
-      <p><strong><%= pluralize(object.errors.count, "error") %> prohibited this task from being saved:</strong></p>
-      <ul>
-        <% object.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
+  <div class="alert alert-danger">
+    <h4><%= pluralize(object.errors.count, "error") %>
+          prohibited this task from being saved:</h4>
+    <ul>
+    <% object.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
   </div>
 <% end %>

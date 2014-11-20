@@ -9,14 +9,11 @@
     <li class="active">Memberships</li>
   </ol>
 
-  <div class="membership-errors">
-    <%= render "shared/errors", object: @membership %>
+  <div class="row form-group">
+      <div class="col-sm-6 memberships">
+        <%= render "shared/errors", object: @membership %>
+      </div>
   </div>
-
-  <br>
-  <br>
-  <br>
-  <br>
 
   <div class="well form-inline col-sm-6">
     <div class="form-group">
@@ -24,7 +21,7 @@
         <%= f.label :user_id %>
         <%= f.collection_select :user_id, User.all, :id, :full_name,
                 {include_blank: "Please select a user..."}, {class: "form-control"} %>
-        <%= f.select :title, [['Member', false],['Owner', true]], {include_blank: false}, 
+        <%= f.select :title, [['Member', false],['Owner', true]], {include_blank: false},
               {class: "dropdown-toggle form-control"} %>
         <%= f.submit "Add New Member", class: "btn btn-primary" %>
       <% end %>
