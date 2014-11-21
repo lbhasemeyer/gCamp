@@ -29,7 +29,10 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
+    p params
+    p "*" * 30
     params.require(:comment).permit(:comment, :task_id, :user_id)
+        .merge({:task_id => params[:task_id], :user_id => session[:user_id]})
   end
 
 end
