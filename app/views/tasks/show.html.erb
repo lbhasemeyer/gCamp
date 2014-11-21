@@ -24,31 +24,26 @@
 <%= @task.complete %>
 </p>
 
+<br>
+
 <h1>Comments</h1>
 
 <table class="table">
-    <thead>
+  <tbody>
+    <% @comments.each do |comment| %>
       <tr>
-        <th></th>
-        <th></th>
+        <td class="col-md-3"><%= comment.created_at %></td>
+        <td class="col-md-9"><%= comment.comment %></td>
       </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td class="col-md-3">Comment Info</td>
-          <td class="col-md-9">Comment</td>
-        </tr>
-    </tbody>
+    <% end %>
+  </tbody>
+</table>
 
-  </table>
-
-<br>
-<br>
-<br>
-<br>
 
 <div class="form-group col-sm-offset-3">
   <%= form_for @comment do |f| %>
+  <%= hidden_field_tag :project_id, @project.id %>
+  <%= hidden_field_tag :task_id, @task.id %>
     <div class="form-group">
         <%= f.text_field :comment, class: "form-control" %>
     </div>
