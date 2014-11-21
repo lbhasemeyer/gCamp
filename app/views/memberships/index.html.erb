@@ -54,7 +54,7 @@
               </td>
               <td>
                 <%= f.select :title, [['Member', false],['Owner', true]],
-                    {include_blank: false}, {class: "dropdown-toggle form-control"} %>
+                    {include_blank: false}, {class: "dropdown-toggle form-control membership"} %>
               </td>
               <td>
                 <%= f.submit "Update", class: "btn btn-primary" %>
@@ -62,7 +62,7 @@
               <td>
                 <%= link_to "", project_membership_path(@project, membership),
                     method: :delete, data: { confirm: 'Are you sure?'},
-                    class: "glyphicon glyphicon-remove" %>
+                    class: "glyphicon glyphicon-remove", :id=> "remove_membership" %>
               </td>
             </tr>
           <% end %>

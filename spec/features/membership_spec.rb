@@ -14,6 +14,13 @@ require 'rails_helper'
       )
     end
 
+    scenario "Link to projects memberships index appears on the project show page" do
+      visit projects_path
+      expect(page).to have_content("0")
+      page.all(:link,"0")[0].click
+      expect(page).to have_content "Scale Mountain on Pogo Stick"
+    end
+
     scenario "Users must enter users and roles for memberships" do
       visit projects_path
       page.all(:link,"0")[0].click
@@ -64,8 +71,28 @@ require 'rails_helper'
     expect(page).to have_content("Membership was successfully created.")
   end
 
-  scenario "Users can change the role of project members" do
+  scenario "Users see breadcrumbs on the memberships index and project show" do
+    visit root_path
+    click_on "Projects"
+    click_on "Scale Mountain on Pogo Stick"
+    page.all(:link,"Projects")[0].click
+    expect(page).to have_content("Projects")
 
+    page.all(:link,"0")[0].click
+    expect(page).to have_content "Scale Mountain on Pogo Stick: Manage Members"
+    click_on "Scale Mountain on Pogo Stick"
+    expect(page).to have_content "Scale Mountain on Pogo Stick"
+    click_on "0 Members"
+    page.all(:link,"Projects")[0].click
+    expect(page).to have_content "Name"
+    expect(page).to have_content "Members"
+    expect(page).to have_content "Tasks"
+  end
+
+  scenario "Users can change the role of project members" do
+  end
+
+  scenario "Users can remove project members" do
   end
 
   end
