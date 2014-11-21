@@ -9,7 +9,7 @@ class MembershipsController < ApplicationController
   end
 
   def create
-    @membership = Membership.new(allowed_params)
+    @membership = Membership.new(membership_params)
     if @membership.save
       redirect_to project_memberships_path, notice: "Membership was successfully created."
     else
@@ -19,7 +19,7 @@ class MembershipsController < ApplicationController
 
   def update
     membership = Membership.find(params[:id])
-    membership.update(allowed_params)
+    membership.update(membership_params)
     if membership.save
       redirect_to project_memberships_path, notice: "Membership was successfully updated."
     else
@@ -35,7 +35,7 @@ class MembershipsController < ApplicationController
 
   private
 
-  def allowed_params
+  def membership_params
     params.require(:membership).permit(:user_id, :title).merge(:project_id => params[:project_id])
   end
 end

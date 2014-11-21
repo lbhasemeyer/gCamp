@@ -62,7 +62,7 @@
               <td>
                 <%= link_to "", project_membership_path(@project, membership),
                     method: :delete, data: { confirm: 'Are you sure?'},
-                    class: "glyphicon glyphicon-remove", :id=> "remove_membership" %>
+                    class: "glyphicon glyphicon-remove" %>
               </td>
             </tr>
           <% end %>
@@ -70,18 +70,3 @@
       </tbody>
     </table>
   </div>
-
-  <!-- <tbody>
-      <% @project.memberships.each do |membership| %>
-          <%= form_for [@project, membership] do |f| %>
-            <tr>
-               <td><%= link_to membership.user.full_name, user_path(membership.user)  %></td>
-               <td><%= f.select :title, [["Member"], ["Owner"]],
-                      {include_blank: false}, {class: "dropdown-toggle form-control"} %></td>
-               <td><%= f.submit "Update", class: "btn btn-primary" %></td>
-               <td><%= link_to "", project_membership_path(@project, membership), method: :delete, data:
-                      { confirm: 'Are you sure?' }, class: "glyphicon glyphicon-remove" %></td>
-            </tr>
-          <% end %>
-      <% end %>
-  </tbody> -->
