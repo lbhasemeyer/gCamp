@@ -1,9 +1,6 @@
 class CommentsController < ApplicationController
 
-  def index
-    @membership = Membership.new
-    @memberships = @project.memberships
-  end
+  
 
   def create
     @comment = @task.comment.new(comment_params)

@@ -30,19 +30,22 @@
     </div>
   </div>
 
-  <div class="form-group">
-      <label class="col-sm-2 control-label"><%= f.label :password %></label>
-    <div class="col-sm-4">
-      <%= f.password_field :password, class: "col-sm-3 form-control" %>
+  <% if @user.id %>
+  <% else %>
+    <div class="form-group">
+        <label class="col-sm-2 control-label"><%= f.label :password %></label>
+      <div class="col-sm-4">
+        <%= f.password_field :password, class: "col-sm-3 form-control" %>
+      </div>
     </div>
-  </div>
 
-  <div class="form-group">
-      <label class="col-sm-2 control-label"><%= f.label :password_confirmation %></label>
-    <div class="col-sm-4">
-      <%= f.password_field :password_confirmation, class: "col-sm-3 form-control" %>
+    <div class="form-group">
+        <label class="col-sm-2 control-label"><%= f.label :password_confirmation %></label>
+      <div class="col-sm-4">
+        <%= f.password_field :password_confirmation, class: "col-sm-3 form-control" %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-5">
