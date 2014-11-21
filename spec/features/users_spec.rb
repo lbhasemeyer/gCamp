@@ -27,8 +27,6 @@ require 'rails_helper'
       fill_in "First name", with: "Lucille"
       fill_in "Last name", with: "Ball"
       fill_in "Email", with: "ilove@lucy.com"
-      fill_in "Password", with: "ricky"
-      fill_in "Password confirmation", with: "ricky"
       click_button "Update User"
       expect(page).to have_content("User was successfully updated.")
       expect(page).to have_content("Lucille Ball")
