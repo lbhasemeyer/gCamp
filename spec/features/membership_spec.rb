@@ -90,6 +90,17 @@ require 'rails_helper'
   end
 
   scenario "Users can change the role of project members" do
+    visit projects_path
+    page.all(:link,"0")[0].click
+    within '.well' do
+      select "Elmer Fudd", from: "membership_user_id"
+      select "Member", from: "membership_title"
+      click_on "Add New Member"
+    end
+    within '.table' do
+       select "Owner", from: "membership_title"
+    end
+    click_on "Update"
   end
 
   scenario "Users can remove project members" do
