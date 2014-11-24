@@ -9,7 +9,7 @@ class MembershipsController < ApplicationController
   end
 
   def create
-    @membership = @project.memberships.new(membership_params)
+    @membership = Membership.new(membership_params)
     if @membership.save
       redirect_to project_memberships_path, notice: "#{@membership.user.full_name} was added successfully."
     else
