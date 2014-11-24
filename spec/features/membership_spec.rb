@@ -34,7 +34,7 @@ require 'rails_helper'
       select "Elmer Fudd", from: "membership_user_id"
       select "Owner", from: "membership_title"
       click_on "Add New Member"
-      expect(page).to have_content("Membership was successfully created.")
+      expect(page).to have_content("Elmer Fudd was added successfully.")
       expect(page).to have_content("Elmer Fudd")
       expect(page).to have_content("Owner")
       expect(page).to have_content("Update")
@@ -60,7 +60,7 @@ require 'rails_helper'
     select "Elmer Fudd", from: "membership_user_id"
     select "Owner", from: "membership_title"
     click_on "Add New Member"
-    expect(page).to have_content("Membership was successfully created.")
+    expect(page).to have_content("Elmer Fudd was added successfully.")
 
     visit projects_path
     click_on "Make River of Cheese"
@@ -68,7 +68,7 @@ require 'rails_helper'
     select "Elmer Fudd", from: "membership_user_id"
     select "Member", from: "membership_title"
     click_on "Add New Member"
-    expect(page).to have_content("Membership was successfully created.")
+    expect(page).to have_content("Elmer Fudd was added successfully.")
   end
 
   scenario "Users see breadcrumbs on the memberships index and project show" do
