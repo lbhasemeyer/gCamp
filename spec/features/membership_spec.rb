@@ -93,6 +93,13 @@ require 'rails_helper'
   end
 
   scenario "Users can remove project members" do
+    visit projects_path
+    page.all(:link,"0")[0].click
+    select "Elmer Fudd", from: "membership_user_id"
+    select "Owner", from: "membership_title"
+    click_on "Add New Member"
+    find('.glyphicon').click
+    expect(page).to have_content "Elmer Fudd was removed successfully."
   end
 
   end

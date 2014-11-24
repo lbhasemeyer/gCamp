@@ -47,7 +47,7 @@ require 'rails_helper'
       expect(page).to have_no_content("false")
       expect(page).to have_no_content("12/12/2014")
 
-      click_on "Destroy"
+      find('.glyphicon').click
       expect(page).to have_content("Task was successfully destroyed.")
     end
 

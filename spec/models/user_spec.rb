@@ -17,7 +17,7 @@ describe User do
       )
     expect(user.valid?).to be(false)
     user.email = email
-    expect(user.valid?).to be(false)
+    expect(user.errors.present?).to eq(true)
     user.email = "mimi@kitty.com"
     expect(user.valid?).to be(true)
   end
@@ -37,7 +37,7 @@ describe User do
     )
     expect(user.valid?).to be(false)
     user.email = "BUGS@BUNNY.com"
-    expect(user.valid?).to be(false)
+    expect(user.errors.present?).to eq(true)
     user.email = "wabbit@get.com"
     expect(user.valid?).to be(true)
   end
