@@ -16,8 +16,8 @@ class TasksController < ApplicationController
   end
 
   def show
-    @comment = Comment.new
-    @comments = Comment.all
+    @comment = @task.comments.new
+    @comments = @task.comments.all
   end
 
   def new
@@ -27,7 +27,7 @@ class TasksController < ApplicationController
   def create
     @task = @project.tasks.new(task_params)
     respond_to do |format|
-      if @task.save
+      if @project.task.save
         format.html { redirect_to project_tasks_path(@project), notice: 'Task was successfully created.' }
         format.json { render :show, status: :created, location: @task }
       else
