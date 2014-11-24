@@ -27,7 +27,7 @@ class TasksController < ApplicationController
   def create
     @task = @project.tasks.new(task_params)
     respond_to do |format|
-      if @project.task.save
+      if @task.save
         format.html { redirect_to project_tasks_path(@project), notice: 'Task was successfully created.' }
         format.json { render :show, status: :created, location: @task }
       else
