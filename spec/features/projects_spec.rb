@@ -25,7 +25,7 @@ require 'rails_helper'
       expect(page).to have_content("Project was successfully updated")
       expect(page).to have_content("Catch Popcorn in Mouth")
 
-      click_on "Destroy"
+      click_on "Delete"
       expect(page).to have_no_content("Catch Popcorn in Mouth")
   end
 
