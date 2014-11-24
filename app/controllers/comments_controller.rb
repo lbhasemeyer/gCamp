@@ -9,22 +9,7 @@ class CommentsController < ApplicationController
     @comment.save
     redirect_to project_task_path(@project, @task), notice: "Comment was successfully created."
   end
-
-  def update
-    @comment = Comment.new(comment_params)
-    if @comment.update
-      redirect_to project_task_path(@project, @task), notice: "Comment was successfully updated."
-    else
-      render :show
-    end
-  end
-
-  def destroy
-    @comment = Comment.new(comment_params)
-    comment.destroy
-    redirect_to project_memberships_path, notice: "Comment was successfully deleted."
-  end
-
+  
 
   private
 
