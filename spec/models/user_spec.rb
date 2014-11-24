@@ -7,19 +7,20 @@ describe User do
     User.create!(
       first_name: "hello",
       last_name: "kitty",
-      email: email,
+      email: "hello@kitty.com",
       password: "hellokitty",
       )
     user = User.new(
       first_name: "mimi",
       last_name: "kitty",
+      email: "hello@kitty.com",
       password: "mimikitty",
       )
-    expect(user.valid?).to be(false)
-    user.email = email
-    expect(user.errors.present?).to eq(true)
+    user.valid?
+    expect(user.errors[:email].present?).to eq(true)
     user.email = "mimi@kitty.com"
-    expect(user.valid?).to be(true)
+    user.valid?
+    expect(user.errors[:email].present?).to eq(false)
   end
 
   it 'verifies email is not case-sensitive' do
@@ -35,11 +36,14 @@ describe User do
       email: "BuGs@buNnY.com",
       password: "guns",
     )
-    expect(user.valid?).to be(false)
+    user.valid?
+    expect(user.errors[:email].present?).to eq(true)
     user.email = "BUGS@BUNNY.com"
-    expect(user.errors.present?).to eq(true)
+    user.valid?
+    expect(user.errors[:email].present?).to eq(true)
     user.email = "wabbit@get.com"
-    expect(user.valid?).to be(true)
+    user.valid?
+    expect(user.errors[:email].present?).to eq(false)
   end
 
 
