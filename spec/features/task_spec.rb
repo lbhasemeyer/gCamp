@@ -23,13 +23,14 @@ require 'rails_helper'
       expect(page).to have_no_content("Food Fight")
       click_on "Create Task"
       fill_in "Description", with: "Food Fight"
-      fill_in "Due date", with: "12/12/2014"
+      fill_in "Due date", with: "12/12/3222"
       click_button "Create Task"
-      expect(page).to have_content("Shampoo Carpet")
       expect(page).to have_content("Task was successfully created")
+      expect(page).to have_content("Shampoo Carpet")
       expect(page).to have_content("Food Fight")
       expect(page).to have_content("False")
-      expect(page).to have_content("12/12/2014")
+      expect(page).to have_content("12/12/3222")
+
 
       click_on "Edit"
       expect(page).to have_content("Edit task")

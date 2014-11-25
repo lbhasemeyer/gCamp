@@ -20,8 +20,11 @@ require 'rails_helper'
     page.all(:link,"0")[1].click
     click_on "Create Task"
     fill_in "Description", with: "Find Wig"
-    fill_in "Due date", with: "12/12/3019"
+    fill_in "Due date", with: "09/09/3009"
     click_button "Create Task"
+    within 'span.badge' do
+      expect(page).to have_content('0')
+    end
 
     click_on "Find Wig"
     expect(page).to have_no_content("Add Comment")
@@ -39,6 +42,10 @@ require 'rails_helper'
     click_button("Add Comment")
     expect(page).to have_content("less than a minute ago")
     expect(page).to have_content("I looked at the grocery store...")
+    click_on "Tasks"
+    within 'span.badge' do
+      expect(page).to have_content('1')
+    end
 
   end
   end
