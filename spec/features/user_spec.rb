@@ -40,6 +40,55 @@ require 'rails_helper'
     end
 
     scenario "When users delete users, associated data should also be deleted" do
+      Project.create!(
+        name: "Break Mug",
+        )
+      visit root_path
+      click_on "Sign Up"
+      fill_in "First Name", with: "April"
+      fill_in "Last Name", with: "O'Neil"
+      fill_in "Email", with: "turtle@power.com"
+      fill_in "Password", with: "pizza"
+      fill_in "Password Confirmation", with: "pizza"
+      click_button "Sign Up"
+
+      visit projects_path
+      click_on "Break Mug"
+      click_on "0 Tasks"
+      click_on "Create Task"
+      fill_in "Description", with: "Get Crisco"
+      fill_in "Due date", with: "12/12/2016"
+      click_button "Create Task"
+      click_link("Get Crisco")
+      fill_in "comment_comment", with: "This is awesome."
+      click_button("Add Comment")
+      visit projects_path
+      click_on "Break Mug"
+      click_on "0 Memberships"
+      within '.well' do
+        select "April O'Neil", from: "membership_user_id"
+        select "Member", from: "membership_title"
+        click_on "Add New Member"
+      end
+      visit about_path
+      expect(page).to have_content("1 Project" && "1 Task" && "1 Project Member" && "1 User" && "1 Comment")
+
+      visit users_path
+      click_link("Edit")
+      click_on "Delete"
+      visit about_path
+      expect(page).to have_content("1 Projects" && "1 Task" && "0 Project Members" && "0 Users" && "1 Comment")
+
+      visit projects_path
+      click_on "Break Mug"
+      click_on "1 Task"
+      click_on "Get Crisco"
+      expect(page).to have_no_content("April O'Neil")
+      expect(page).to have_content("(deleted user)")
+
     end
+
+
+
 
 end
