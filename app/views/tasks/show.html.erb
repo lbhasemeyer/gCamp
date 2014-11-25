@@ -26,22 +26,24 @@
 
   <h1>Comments</h1>
 
-
-      <% @comments.each do |comment| %>
-          <div class="row">
-            <div class="col-md-3">
+    <% @comments.each do |comment| %>
+        <div class="row">
+          <div class="col-md-3">
+          <% if comment.user_id %>
             <%= link_to comment.user.full_name, user_path(comment.user) %>
-            <div class="text-muted">
-            <%= time_ago_in_words(comment.created_at) %> ago
-            </div>
-            </div>
-
-            <div class="col-md-9">
-            <%= comment.comment %>
-            </div>
+          <% else %>
+            (deleted user)
+          <% end %>
+          <div class="text-muted">
+          <%= time_ago_in_words(comment.created_at) %> ago
           </div>
-      <% end %>
+          </div>
 
+          <div class="col-md-9">
+          <%= comment.comment %>
+          </div>
+        </div>
+    <% end %>
 
   <% if session[:user_id] %>
     <div class="row">
