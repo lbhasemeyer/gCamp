@@ -27,5 +27,49 @@ require 'rails_helper'
 
       click_on "Delete"
       expect(page).to have_no_content("Catch Popcorn in Mouth")
-  end
+    end
+
+    scenario "When a user deletes a project all related data should be deleted" do
+      Project.create!(
+        name: "Find Yellow Bird",
+        )
+      visit root_path
+      click_link "Sign Up"
+      fill_in "First Name", with: "Harrison"
+      fill_in "Last Name", with: "Ford"
+      fill_in "Email", with: "star@wars.com"
+      fill_in "Password", with: "yoda"
+      fill_in "Password Confirmation", with: "yoda"
+      click_button "Sign Up"
+
+      visit projects_path
+      click_on "Find Yellow Bird"
+      click_on "0 Tasks"
+      click_on "Create Task"
+      fill_in "Description", with: "Go Outside"
+      fill_in "Due date", with: "12/12/2016"
+      click_button "Create Task"
+      click_link("Go Outside")
+      fill_in "comment_comment", with: "But which door do I use to go outside?"
+      click_button("Add Comment")
+      visit projects_path
+      click_on "Find Yellow Bird"
+      click_on "0 Memberships"
+      within '.well' do
+        select "Harrison Ford", from: "membership_user_id"
+        select "Member", from: "membership_title"
+        click_on "Add New Member"
+      end
+      visit about_path
+      expect(page).to have_content("1 Project" && "1 Task" && "1 Project Member" && "1 User" && "1 Comment")
+
+      visit projects_path
+      click_on "Find Yellow Bird"
+      within '.well' do
+        click_on "Delete"
+      end
+      visit about_path
+      expect(page).to have_content("0 Projects" && "0 Tasks" && "0 Project Members" && "0 Users" && "0 Comments")
+    end
+
   end

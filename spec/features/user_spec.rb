@@ -37,6 +37,9 @@ require 'rails_helper'
       expect(page).to have_content("User was successfully deleted")
       expect(page).to have_no_content("Lucille Ball")
       expect(page).to have_no_content("ilove@lucy.com")
-  end
+    end
+
+    scenario "When users delete users, associated data should also be deleted" do
+    end
 
 end

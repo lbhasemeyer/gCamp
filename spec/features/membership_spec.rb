@@ -31,8 +31,10 @@ require 'rails_helper'
     scenario "Users can add members to projects" do
       visit projects_path
       page.all(:link,"0")[0].click
-      select "Elmer Fudd", from: "membership_user_id"
-      select "Owner", from: "membership_title"
+      within ".well" do
+        select "Elmer Fudd", from: "membership_user_id"
+        select "Owner", from: "membership_title"
+      end
       click_on "Add New Member"
       expect(page).to have_content("Elmer Fudd was added successfully.")
       expect(page).to have_content("Elmer Fudd")

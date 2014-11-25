@@ -78,4 +78,46 @@ require 'rails_helper'
       expect(page).to have_content("Use Stilts")
     end
 
+    scenario "When a user deletes a task all related comments should be deleted" do
+      Project.create!(
+        name: "Juggle Chain Saws",
+        )
+      visit root_path
+      click_link "Sign Up"
+      fill_in "First Name", with: "Marky"
+      fill_in "Last Name", with: "Mark"
+      fill_in "Email", with: "marky@mark.com"
+      fill_in "Password", with: "mark"
+      fill_in "Password Confirmation", with: "mark"
+      click_button "Sign Up"
+
+      visit projects_path
+      click_on "Juggle Chain Saws"
+      click_on "0 Tasks"
+      click_on "Create Task"
+      fill_in "Description", with: "Take a Deep Breath"
+      fill_in "Due date", with: "12/12/2016"
+      click_button "Create Task"
+      click_link("Take a Deep Breath")
+      fill_in "comment_comment", with: "But which door do I use to go outside?"
+      click_button("Add Comment")
+      visit projects_path
+      click_on "Juggle Chain Saws"
+      click_on "0 Memberships"
+      within '.well' do
+        select "Marky Mark", from: "membership_user_id"
+        select "Member", from: "membership_title"
+        click_on "Add New Member"
+      end
+      visit about_path
+      expect(page).to have_content("1 Project" && "1 Task" && "1 Project Member" && "1 User" && "1 Comment")
+
+      visit projects_path
+      click_link "Juggle Chain Saws"
+      click_on "1 Task"
+      find('.glyphicon').click
+      visit about_path
+      expect(page).to have_content("1 Project" && "0 Tasks" && "1 Project Member" && "1 Users" && "0 Comments")
+    end
+
 end
