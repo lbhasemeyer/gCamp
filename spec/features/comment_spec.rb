@@ -10,6 +10,7 @@ require 'rails_helper'
         password_confirmation: "battery"
       )
     end
+
     scenario "User creates a comment - but only when logged in" do
     Project.create!(
       name: "Win Elvis Impersonation Contest",
@@ -33,10 +34,11 @@ require 'rails_helper'
     click_on("Win Elvis Impersonation Contest")
     click_on("1 Task")
     click_on("Find Wig")
-    expect(page).to have_content("Add Comment")
-
-
-
+    expect(page).to have_button("Add Comment")
+    fill_in "comment_comment", with: "I looked at the grocery store..."
+    click_button("Add Comment")
+    expect(page).to have_content("less than a minute ago")
+    expect(page).to have_content("I looked at the grocery store...")
 
   end
   end
