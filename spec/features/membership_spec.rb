@@ -37,7 +37,7 @@ require 'rails_helper'
       expect(page).to have_content("Elmer Fudd was added successfully.")
       expect(page).to have_content("Elmer Fudd")
       expect(page).to have_content("Owner")
-      expect(page).to have_content("Update")
+      expect(page).to have_button("Update")
     end
 
   scenario "Users cannot add the same member to a project twice" do

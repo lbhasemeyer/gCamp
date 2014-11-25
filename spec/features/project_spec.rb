@@ -1,7 +1,7 @@
 require 'rails_helper'
 
   feature "projects" do
-    scenario "User creates a project" do
+    scenario "User creates, edits, and destroys a project" do
       visit root_path
       click_on "Projects"
       expect(page).to have_no_content("Food Fortress")
@@ -28,5 +28,4 @@ require 'rails_helper'
       click_on "Delete"
       expect(page).to have_no_content("Catch Popcorn in Mouth")
   end
-
-end
+  end
