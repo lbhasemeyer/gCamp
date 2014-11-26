@@ -16,12 +16,12 @@ require 'rails_helper'
       name: "Win Elvis Impersonation Contest",
       )
     visit root_path
-    click_on "Projects"
+    click_on("Projects")
     page.all(:link,"0")[1].click
-    click_on "Create Task"
-    fill_in "Description", with: "Find Wig"
-    fill_in "Due date", with: "09/09/3009"
-    click_button "Create Task"
+    click_on("Create Task")
+    fill_in "Description" , with: "Find Wig"
+    fill_in "Due date" , with: "09/09/3009"
+    click_button("Create Task")
     within 'span.badge' do
       expect(page).to have_content('0')
     end
@@ -29,10 +29,10 @@ require 'rails_helper'
     click_on "Find Wig"
     expect(page).to have_no_content("Add Comment")
 
-    click_on "Sign In"
+    click_on("Sign In")
     fill_in "Email", with: "big@drum.com"
     fill_in "Password", with: "battery"
-    click_button "Sign in"
+    click_button("Sign in")
     visit projects_path
     click_on("Win Elvis Impersonation Contest")
     click_on("1 Task")
@@ -42,7 +42,7 @@ require 'rails_helper'
     click_button("Add Comment")
     expect(page).to have_content("less than a minute ago")
     expect(page).to have_content("I looked at the grocery store...")
-    click_on "Tasks"
+    click_on("Tasks")
     within 'span.badge' do
       expect(page).to have_content('1')
     end

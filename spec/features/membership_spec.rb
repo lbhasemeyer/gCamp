@@ -24,7 +24,7 @@ require 'rails_helper'
     scenario "Users must enter users and roles for memberships" do
       visit projects_path
       page.all(:link,"0")[0].click
-      click_on "Add New Member"
+      click_on("Add New Member")
       expect(page).to have_content("User can't be blank")
     end
 
@@ -39,7 +39,7 @@ require 'rails_helper'
         select "Elmer Fudd", from: "membership_user_id"
         select "Owner", from: "membership_title"
       end
-      click_on "Add New Member"
+      click_on("Add New Member")
       expect(page).to have_content("Elmer Fudd was added successfully.")
       expect(page).to have_content("Elmer Fudd")
       expect(page).to have_content("Owner")
@@ -53,7 +53,7 @@ require 'rails_helper'
     select "Owner", from: "membership_title"
     click_on "Add New Member"
     select "Elmer Fudd", from: "membership_user_id"
-    click_on "Add New Member"
+    click_on("Add New Member")
     expect(page).to have_content("User has already been added")
   end
 
@@ -65,30 +65,30 @@ require 'rails_helper'
     page.all(:link,"0")[0].click
     select "Elmer Fudd", from: "membership_user_id"
     select "Owner", from: "membership_title"
-    click_on "Add New Member"
+    click_on("Add New Member")
     expect(page).to have_content("Elmer Fudd was added successfully.")
 
     visit projects_path
-    click_on "Make River of Cheese"
-    click_on "0 Members"
+    click_on("Make River of Cheese")
+    click_on("0 Members")
     select "Elmer Fudd", from: "membership_user_id"
     select "Member", from: "membership_title"
-    click_on "Add New Member"
+    click_on("Add New Member")
     expect(page).to have_content("Elmer Fudd was added successfully.")
   end
 
   scenario "Users see breadcrumbs on the memberships index and project show" do
     visit root_path
-    click_on "Projects"
-    click_on "Scale Mountain on Pogo Stick"
+    click_on("Projects")
+    click_on("Scale Mountain on Pogo Stick")
     page.all(:link,"Projects")[0].click
     expect(page).to have_content("Projects")
 
     page.all(:link,"0")[0].click
     expect(page).to have_content "Scale Mountain on Pogo Stick: Manage Members"
-    click_on "Scale Mountain on Pogo Stick"
+    click_on("Scale Mountain on Pogo Stick")
     expect(page).to have_content "Scale Mountain on Pogo Stick"
-    click_on "0 Members"
+    click_on("0 Members")
     page.all(:link,"Projects")[0].click
     expect(page).to have_content "Name"
     expect(page).to have_content "Members"
@@ -101,12 +101,12 @@ require 'rails_helper'
     within '.well' do
       select "Elmer Fudd", from: "membership_user_id"
       select "Member", from: "membership_title"
-      click_on "Add New Member"
+      click_on("Add New Member")
     end
     within '.table' do
        select "Owner", from: "membership_title"
     end
-    click_on "Update"
+    click_on("Update")
   end
 
   scenario "Users can remove project members" do
@@ -114,7 +114,7 @@ require 'rails_helper'
     page.all(:link,"0")[0].click
     select "Elmer Fudd", from: "membership_user_id"
     select "Owner", from: "membership_title"
-    click_on "Add New Member"
+    click_on("Add New Member")
     find('.glyphicon').click
     expect(page).to have_content "Elmer Fudd was removed successfully."
   end

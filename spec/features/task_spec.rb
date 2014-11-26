@@ -6,10 +6,10 @@ require 'rails_helper'
         name: "Food Fight",
         )
       visit root_path
-      click_on "Projects"
+      click_on("Projects")
       page.all(:link,"0")[1].click
-      click_on "Create Task"
-      click_button "Create Task"
+      click_on("Create Task")
+      click_button("Create Task")
       expect(page).to have_content("Description can't be blank")
     end
 
@@ -18,13 +18,13 @@ require 'rails_helper'
         name: "Shampoo Carpet",
         )
       visit root_path
-      click_on "Projects"
+      click_on("Projects")
       page.all(:link,"0")[1].click
       expect(page).to have_no_content("Food Fight")
-      click_on "Create Task"
+      click_on("Create Task")
       fill_in "Description", with: "Food Fight"
       fill_in "Due date", with: "12/12/3222"
-      click_button "Create Task"
+      click_button ("Create Task")
       expect(page).to have_content("Task was successfully created")
       expect(page).to have_content("Shampoo Carpet")
       expect(page).to have_content("Food Fight")
@@ -32,15 +32,15 @@ require 'rails_helper'
       expect(page).to have_content("12/12/3222")
 
 
-      click_on "Edit"
+      click_on("Edit")
       expect(page).to have_content("Edit task")
       fill_in "Description", with: "Eat Marshmallow"
       fill_in "Due date", with: "01/01/2015"
-      check 'Complete'
-      click_button "Update Task"
+      check('Complete')
+      click_button("Update Task")
       expect(page).to have_content("Task was successfully updated")
       expect(page).to have_no_content("Eat Marshmallow")
-      click_on "All"
+      click_on("All")
       expect(page).to have_content("Eat Marshmallow")
       expect(page).to have_content("True")
       expect(page).to have_content("01/01/2015")
@@ -57,24 +57,24 @@ require 'rails_helper'
         name: "Shampoo Carpet"
         )
       visit root_path
-      click_on "Projects"
+      click_on("Projects")
       page.all(:link,"0")[1].click
       expect(page).to have_no_content("Food Fight")
-      click_on "Create Task"
+      click_on("Create Task")
       fill_in "Description", with: "Ride Tricycle"
       fill_in "Due date", with: "12/12/2016"
-      click_button "Create Task"
-      click_on "Edit"
+      click_button("Create Task")
+      click_on("Edit")
       expect(page).to have_content("Edit task")
-      check 'Complete'
-      click_button "Update Task"
-      click_on "Create Task"
+      check('Complete')
+      click_button("Update Task")
+      click_on("Create Task")
       fill_in "Description", with: "Use Stilts"
       fill_in "Due date", with: "12/12/2016"
       click_button "Create Task"
-      click_on "All"
+      click_on("All")
       expect(page).to have_content("Ride Tricycle")
-      click_on "Incomplete"
+      click_on("Incomplete")
       expect(page).to have_content("Use Stilts")
     end
 
@@ -83,27 +83,27 @@ require 'rails_helper'
         name: "Juggle Chain Saws",
         )
       visit root_path
-      click_link "Sign Up"
+      click_link("Sign Up")
       fill_in "First Name", with: "Marky"
       fill_in "Last Name", with: "Mark"
       fill_in "Email", with: "marky@mark.com"
       fill_in "Password", with: "mark"
       fill_in "Password Confirmation", with: "mark"
-      click_button "Sign Up"
+      click_button("Sign Up")
 
       visit projects_path
-      click_on "Juggle Chain Saws"
-      click_on "0 Tasks"
-      click_on "Create Task"
+      click_on("Juggle Chain Saws")
+      click_on("0 Tasks")
+      click_on("Create Task")
       fill_in "Description", with: "Take a Deep Breath"
       fill_in "Due date", with: "12/12/2016"
-      click_button "Create Task"
+      click_button("Create Task")
       click_link("Take a Deep Breath")
       fill_in "comment_comment", with: "But which door do I use to go outside?"
       click_button("Add Comment")
       visit projects_path
-      click_on "Juggle Chain Saws"
-      click_on "0 Memberships"
+      click_on("Juggle Chain Saws")
+      click_on("0 Memberships")
       within '.well' do
         select "Marky Mark", from: "membership_user_id"
         select "Member", from: "membership_title"
@@ -113,8 +113,8 @@ require 'rails_helper'
       expect(page).to have_content("1 Project" && "1 Task" && "1 Project Member" && "1 User" && "1 Comment")
 
       visit projects_path
-      click_link "Juggle Chain Saws"
-      click_on "1 Task"
+      click_link("Juggle Chain Saws")
+      click_on("1 Task")
       find('.glyphicon').click
       visit about_path
       expect(page).to have_content("1 Project" && "0 Tasks" && "1 Project Member" && "1 Users" && "0 Comments")
