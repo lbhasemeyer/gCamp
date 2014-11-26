@@ -32,45 +32,41 @@
         </div>
     </div>
 
+    <div class="container">
       <% if notice %>
-        <div class="container alert alert-success text-center" role= "alert">
+        <div class="alert alert-success text-center" role= "alert">
             <strong><%= notice %></strong>
         </div>
       <% end %>
 
-
-    <div class="container">
       <%= yield %>
+      <hr>
     </div>
 
-    <footer>
-      <div class="container">
-        <div class= "left_footer">
-          <%= link_to "About", about_path %>
-          |
-          <%= link_to "Terms", terms_path %>
-          |
-          <%= link_to "FAQ", faq_path %>
-          |
-          <%= link_to "Users", users_path %>
-          |
+    <div class="container">
+      <footer class= "footer">
+        <div class="pull-left">
+          <%= link_to "About ", about_path %> |
+          <%= link_to "Terms", terms_path %> |
+          <%= link_to "FAQ", faq_path %> |
+          <%= link_to "Users", users_path %> |
           <%= link_to "Projects", projects_path %>
         </div>
         <div class="pull-right">
           <%= link_to "https://www.linkedin.com/in/laurahasemeyer/" do %>
-            <% image_tag("LinkedIn.png", width: "40em") %>
+            <% image_tag("LinkedIn.png", width: "30em") %>
           <% end %>
           <%= link_to "https://github.com/lbhasemeyer" do %>
-            <% image_tag("GitHub.png", width: "40em") %>
+            <% image_tag("GitHub.png", width: "30em") %>
           <% end %>
           <%= link_to "https://twitter.com/lkbhas" do %>
-            <% image_tag("Twitter.png", width: "40em") %>
+            <% image_tag("Twitter.png", width: "30em") %>
           <% end %>
           <%= link_to "http://www.galvanize.it/school/#main" do %>
-            <% image_tag("gSchool.png", width: "150em") %>
+            <% image_tag("gSchool.png", width: "130em") %>
           <% end %>
         </div>
-      </div>
-    </footer>
+      </footer>
+    </div>
   </body>
 </html>
