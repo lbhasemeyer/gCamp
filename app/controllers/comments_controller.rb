@@ -5,11 +5,11 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = Comment.new(comment_params)
+    @comment = @task.comments.new(comment_params)
     @comment.save
     redirect_to project_task_path(@project, @task), notice: "Comment was successfully created."
   end
-  
+
 
   private
 

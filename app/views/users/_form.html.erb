@@ -30,8 +30,7 @@
     </div>
   </div>
 
-  <% if @user.id %>
-  <% else %>
+  <% if @user.id.nil? %>
     <div class="form-group">
         <label class="col-sm-2 control-label"><%= f.label :password %></label>
       <div class="col-sm-4">
