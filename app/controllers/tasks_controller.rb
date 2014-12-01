@@ -1,7 +1,6 @@
 class TasksController < ApplicationController
 
   before_action :authorize
-  before_action :projects
   before_action do
     @project = Project.find(params[:project_id])
   end
@@ -69,10 +68,6 @@ class TasksController < ApplicationController
       unless current_user
         redirect_to signin_path, notice: "You must be logged in to access that action"
       end
-    end
-
-    def projects
-      @projects = Project.all
     end
 
     def set_task

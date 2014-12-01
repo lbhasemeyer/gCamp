@@ -1,7 +1,6 @@
 class ProjectsController < ApplicationController
 
   before_action :authorize
-  before_action :projects
 
   def index
     @projects = Project.all
@@ -50,10 +49,6 @@ class ProjectsController < ApplicationController
     unless current_user
       redirect_to signin_path, notice: "You must be logged in to access that action"
     end
-  end
-
-  def projects
-    @projects = Project.all
   end
 
   def current_user
