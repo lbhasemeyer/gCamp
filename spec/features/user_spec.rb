@@ -81,7 +81,7 @@ require 'rails_helper'
       click_link("Edit")
       click_on("Delete")
       visit about_path
-      expect(page).to have_content("1 Projects")
+      expect(page).to have_content("1 Project")
       expect(page).to have_content("1 Task")
       expect(page).to have_content("0 Project Members")
       expect(page).to have_content("0 Users")
