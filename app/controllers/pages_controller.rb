@@ -1,4 +1,4 @@
-class PagesController < ApplicationController
+class PagesController < MarketingController
 
 def index
   quote1 = Quote.new
@@ -16,7 +16,6 @@ def index
 @quotes= [quote1, quote2, quote3]
 end
 
-
 def faq
   faq1 = Faq.new
   faq1.question = "What is gCamp?"
@@ -32,6 +31,5 @@ def faq
 
 @faqs= [faq1, faq2, faq3]
 end
-
 
 end

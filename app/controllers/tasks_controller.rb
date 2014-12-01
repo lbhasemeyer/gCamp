@@ -3,7 +3,9 @@ class TasksController < ApplicationController
   before_action do
     @project = Project.find(params[:project_id])
   end
+
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+
 
   def index
     if params[:filter_by] == "all"
