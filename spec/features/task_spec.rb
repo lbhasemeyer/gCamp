@@ -110,14 +110,22 @@ require 'rails_helper'
         click_on "Add New Member"
       end
       visit about_path
-      expect(page).to have_content("1 Project" && "1 Task" && "1 Project Member" && "1 User" && "1 Comment")
+      expect(page).to have_content("1 Project")
+      expect(page).to have_content("1 Task")
+      expect(page).to have_content("1 Project Member")
+      expect(page).to have_content("1 User")
+      expect(page).to have_content("1 Comment")
 
       visit projects_path
       click_link("Juggle Chain Saws")
       click_on("1 Task")
       find('.glyphicon').click
       visit about_path
-      expect(page).to have_content("1 Project" && "0 Tasks" && "1 Project Member" && "1 Users" && "0 Comments")
+      expect(page).to have_content("1 Project")
+      expect(page).to have_content("0 Tasks")
+      expect(page).to have_content("1 Project Member")
+      expect(page).to have_content("1 User")
+      expect(page).to have_content("0 Comments")
     end
 
 end

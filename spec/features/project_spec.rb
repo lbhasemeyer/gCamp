@@ -61,7 +61,11 @@ require 'rails_helper'
         click_on("Add New Member")
       end
       visit about_path
-      expect(page).to have_content("1 Project" && "1 Task" && "1 Project Member" && "1 User" && "1 Comment")
+      expect(page).to have_content("1 Project")
+      expect(page).to have_content("1 Task")
+      expect(page).to have_content("1 Project Member")
+      expect(page).to have_content("1 User")
+      expect(page).to have_content("1 Comment")
 
       visit projects_path
       click_on("Find Yellow Bird")
@@ -69,7 +73,11 @@ require 'rails_helper'
         click_on("Delete")
       end
       visit about_path
-      expect(page).to have_content("0 Projects" && "0 Tasks" && "0 Project Members" && "0 Users" && "0 Comments")
+      expect(page).to have_content("0 Projects")
+      expect(page).to have_content("0 Tasks")
+      expect(page).to have_content("0 Project Members")
+      expect(page).to have_content("1 User")
+      expect(page).to have_content("0 Comments")
     end
 
   end
