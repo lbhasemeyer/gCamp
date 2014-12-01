@@ -1,11 +1,13 @@
 class TasksController < ApplicationController
 
+  before_action :authorize
+  before_action :projects
+
   before_action do
     @project = Project.find(params[:project_id])
   end
 
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-
 
   def index
     if params[:filter_by] == "all"
@@ -64,6 +66,16 @@ class TasksController < ApplicationController
 
 
   private
+
+    def authorize
+      unless current_user
+        redirect_to signin_path, notice: "You must be logged in to access that action"
+      end
+    end
+
+    def projects
+      @projects = Project.all
+    end
 
     def set_task
       @task = @project.tasks.find(params[:id])
