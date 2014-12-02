@@ -1,9 +1,10 @@
 class ProjectsController < ApplicationController
 
   before_action :authorize
+  before_action :membership_id_match
 
   def index
-    @projects = Project.all
+      @projects = Project.all
   end
 
   def show
@@ -49,6 +50,14 @@ class ProjectsController < ApplicationController
   def authorize
     unless current_user
       redirect_to signin_path, notice: "You must be logged in to access that action"
+    end
+  end
+
+  def membership_id_match
+    project_list = Membership.where(user_id: current_user.id).pluck(:project_id)
+    @project = Project.find(params[:id])
+    unless project_list.include?(@project.id)
+      raise AccessDenied
     end
   end
 

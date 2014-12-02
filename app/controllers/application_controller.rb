@@ -12,7 +12,18 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
 
+  class AccessDenied < StandardError
+  end
+
+  rescue_from AccessDenied, with: :render_404
+
+
+
 private
+
+  def render_404
+    render "public/404", status: 404, layout: false
+  end
 
   def projects
     @projects = Project.all
