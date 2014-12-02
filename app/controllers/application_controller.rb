@@ -18,11 +18,26 @@ class ApplicationController < ActionController::Base
   rescue_from AccessDenied, with: :render_404
 
 
-
 private
 
   def render_404
     render "public/404", status: 404, layout: false
+  end
+
+  def membership_project_id_match
+    project_list = Membership.where(user_id: current_user.id).pluck(:project_id)
+    @project = Project.find(params[:id])
+    unless project_list.include?(@project.id)
+      raise AccessDenied
+    end
+  end
+
+  def membership_id_match
+    project_list = Membership.where(user_id: current_user.id).pluck(:project_id)
+    @project = Project.find(params[:project_id])
+    unless project_list.include?(@project.id)
+      raise AccessDenied
+    end
   end
 
   def projects
