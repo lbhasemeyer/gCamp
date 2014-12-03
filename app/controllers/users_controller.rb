@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
 
   before_action :authorize
+  before_action :authorize_user, only: [:edit, :update, :destroy]
+
 
   def index
     @users = User.all
@@ -48,6 +50,12 @@ class UsersController < ApplicationController
   def authorize
     unless current_user
       redirect_to signin_path, notice: "You must be logged in to access that action"
+    end
+  end
+
+  def authorize_user
+    unless current_user == @user
+      raise AccessDenied
     end
   end
 
