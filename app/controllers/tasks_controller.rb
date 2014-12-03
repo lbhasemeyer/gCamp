@@ -71,6 +71,13 @@ class TasksController < ApplicationController
       end
     end
 
+    def membership_id_match
+      project_list = Membership.where(user_id: current_user.id).pluck(:project_id)
+      unless project_list.include?(@project.id)
+        raise AccessDenied
+      end
+    end
+
     def set_task
       @task = @project.tasks.find(params[:id])
     end

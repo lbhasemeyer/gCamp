@@ -24,21 +24,6 @@ private
     render "public/404", status: 404, layout: false
   end
 
-  def membership_project_id_match
-    project_list = Membership.where(user_id: current_user.id).pluck(:project_id)
-    @project = Project.find(params[:id])
-    unless project_list.include?(@project.id)
-      raise AccessDenied
-    end
-  end
-
-  def membership_id_match
-    project_list = Membership.where(user_id: current_user.id).pluck(:project_id)
-    unless project_list.include?(@project.id)
-      raise AccessDenied
-    end
-  end
-
   def projects
     @projects = Project.all
   end

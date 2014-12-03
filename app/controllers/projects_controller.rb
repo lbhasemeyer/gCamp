@@ -53,6 +53,16 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def membership_project_id_match
+    @project = Project.find(params[:id])
+    raise AccessDenied unless current_user.projects.include?(@project)
+    # project_list = Membership.where(user_id: current_user.id).pluck(:project_id)
+    # @project = Project.find(params[:id])
+    # unless project_list.include?(@project.id)
+    #   raise AccessDenied
+    # end
+  end
+
   def current_user
     @user = User.find_by(id: session[:user_id])
   end
