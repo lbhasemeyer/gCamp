@@ -2,8 +2,7 @@ require 'rails_helper'
 
   feature "users" do
     scenario "User creates a user" do
-      visit root_path
-      click_on("Users")
+      visit users_path
       expect(page).to have_no_content("Ron Burgundy")
       click_on("Create User")
       click_on("Create User")

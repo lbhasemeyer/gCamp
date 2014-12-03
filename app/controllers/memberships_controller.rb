@@ -4,7 +4,7 @@ class MembershipsController < ApplicationController
     @project = Project.find(params[:project_id])
   end
   before_action :authorize
-  before_action :membership_id_match
+  before_action :task_membership_id_match
 
   def index
     @membership = Membership.new
@@ -44,11 +44,12 @@ class MembershipsController < ApplicationController
     end
   end
 
-  def membership_id_match
-    project_list = Membership.where(user_id: current_user.id).pluck(:project_id)
-    unless project_list.include?(@project.id)
-      raise AccessDenied
-    end
+  def task_membership_id_match
+    raise AccessDenied unless current_user.projects.include?(@project)
+    # project_list = Membership.where(user_id: current_user.id).pluck(:project_id)
+    # unless project_list.include?(@project.id)
+    #   raise AccessDenied
+    # end
   end
 
   def membership_params

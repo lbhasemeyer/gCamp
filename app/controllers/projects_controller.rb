@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
 
   before_action :authorize
-  before_action :membership_project_id_match, only: [:show, :edit, :update, :destroy]
+  before_action :project_id_match, only: [:show, :edit, :update, :destroy]
 
   def index
       @projects = Project.all
@@ -53,7 +53,7 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def membership_project_id_match
+  def project_id_match
     @project = Project.find(params[:id])
     raise AccessDenied unless current_user.projects.include?(@project)
     # project_list = Membership.where(user_id: current_user.id).pluck(:project_id)
