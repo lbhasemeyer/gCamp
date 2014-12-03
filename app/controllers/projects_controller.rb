@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
 
   before_action :authorize_membership, only: [:show]
-  # before_action :authorize_owner, only: [:edit, :update, :destroy]
+  before_action :authorize_owner, only: [:edit, :update, :destroy]
 
   def index
     @projects = Project.all
@@ -49,27 +49,17 @@ class ProjectsController < ApplicationController
 
   def authorize_membership
     @project = Project.find(params[:id])
-    raise AccessDenied unless current_user.projects.include?(@project)
-    # project_list = Membership.where(user_id: current_user.id).pluck(:project_id)
-    # @project = Project.find(params[:id])
-    # unless project_list.include?(@project.id)
-    #   raise AccessDenied
-    # end
+    unless current_user.is_project_member?(@project)
+      raise AccessDenied
+    end
   end
 
-  # def authorize_owner
-  #   @project = Project.find(params[:id])
-  #   unless current_user.membership.where(project_id: @project, title: "Owner").present?
-  #     raise AccessDenied
-  #   end
-  # end
-  #
-  # def authorize_owner
-  # memberships = @project.memberships.where(title: 'Owner', user_id: current_user)
-  #   if memberships.empty?
-  #     raise AccessDenied
-  #   end
-  # end
+  def authorize_owner
+    @project = Project.find(params[:id])
+    unless current_user.is_owner?(@project)
+      raise AccessDenied
+    end
+  end
 
   def project_params
     params.require(:project).permit(:name)

@@ -9,8 +9,18 @@ class User < ActiveRecord::Base
   has_many :projects, through: :memberships
   has_many :comments, dependent: :nullify
 
+
+
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def is_owner?(project)
+    project.memberships.where(title: 'Owner', user_id: id).present?
+  end
+
+  def is_project_member?(project)
+    projects.include?(project)
   end
 
 end
