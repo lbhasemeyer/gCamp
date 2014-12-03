@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
 
-  before_action :require_login
-  before_action :authorize, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_membership, only: [:show]
+  # before_action :authorize_owner, only: [:edit, :update, :destroy]
 
   def index
     @projects = Project.all
@@ -47,13 +47,7 @@ class ProjectsController < ApplicationController
 
   private
 
-  def require_login
-    unless current_user
-      redirect_to signin_path, notice: "You must be logged in to access that action"
-    end
-  end
-
-  def authorize
+  def authorize_membership
     @project = Project.find(params[:id])
     raise AccessDenied unless current_user.projects.include?(@project)
     # project_list = Membership.where(user_id: current_user.id).pluck(:project_id)
@@ -62,6 +56,20 @@ class ProjectsController < ApplicationController
     #   raise AccessDenied
     # end
   end
+
+  # def authorize_owner
+  #   @project = Project.find(params[:id])
+  #   unless current_user.membership.where(project_id: @project, title: "Owner").present?
+  #     raise AccessDenied
+  #   end
+  # end
+  #
+  # def authorize_owner
+  # memberships = @project.memberships.where(title: 'Owner', user_id: current_user)
+  #   if memberships.empty?
+  #     raise AccessDenied
+  #   end
+  # end
 
   def project_params
     params.require(:project).permit(:name)

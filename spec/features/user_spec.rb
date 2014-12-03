@@ -2,6 +2,7 @@ require 'rails_helper'
 
   feature "users" do
     scenario "User creates a user" do
+      skip
       visit users_path
       expect(page).to have_no_content("Ron Burgundy")
       click_on("Create User")
@@ -39,6 +40,7 @@ require 'rails_helper'
     end
 
     scenario "When users delete users, associated data should also be deleted" do
+      skip
       Project.create!(
         name: "Break Mug",
         )

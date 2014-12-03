@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   end
   before_action :require_login
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  before_action :authorize
+  before_action :authorize_membership
 
   def index
     if params[:filter_by] == "all"
@@ -71,7 +71,7 @@ class TasksController < ApplicationController
       end
     end
 
-    def authorize
+    def authorize_membership
       raise AccessDenied unless current_user.projects.include?(@project)
       # project_list = Membership.where(user_id: current_user.id).pluck(:project_id)
       # unless project_list.include?(@project.id)
