@@ -14,6 +14,11 @@ describe ProjectsController do
       )
     end
 
+    it "does not allow non-logged in users" do
+      get :edit, id: @project.id
+      expect(response.status).to redirect_to(signin_path)
+    end
+
     it "does not allow non-members" do
       session[:user_id] = @user.id
       get :edit, id: @project.id

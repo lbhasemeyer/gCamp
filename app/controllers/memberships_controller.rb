@@ -5,6 +5,7 @@ class MembershipsController < ApplicationController
   end
   before_action :require_login
   before_action :authorize_membership
+  before_action :authorize_owner, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @membership = Membership.new
@@ -50,6 +51,13 @@ class MembershipsController < ApplicationController
     # unless project_list.include?(@project.id)
     #   raise AccessDenied
     # end
+  end
+
+  def authorize_owner
+    @project = Project.find(params[:project_id])
+    unless current_user.is_owner?(@project)
+      raise AccessDenied
+    end
   end
 
   def membership_params
