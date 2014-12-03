@@ -1,10 +1,22 @@
 require 'rails_helper'
 
   feature "projects" do
+
+    before do
+        User.create!(
+          first_name: "Dough",
+          last_name: "Boy",
+          email: "bake@that.com",
+          password: "dough",
+          password_confirmation: "dough"
+        )
+        visit signin_path
+        fill_in "Email", with: "bake@that.com"
+        fill_in "Password", with: "dough"
+        click_button "Sign in"
+    end
+    
     scenario "User creates, edits, and destroys a project" do
-      visit root_path
-      click_on("Projects")
-      expect(page).to have_no_content("Food Fortress")
       click_on("Create Project")
       click_on("Create Project")
       expect(page).to have_content("Name can't be blank")
@@ -13,10 +25,7 @@ require 'rails_helper'
       click_button("Create Project")
       expect(page).to have_content("Project was successfully created")
       expect(page).to have_content("Food Fortress")
-
-      page.all(:link,"Projects")[0].click
-      expect(page).to have_content("Food Fortress")
-      click_on("Food Fortress")
+      page.all(:link,"Food Fortress")[1].click
 
       click_on("Edit")
       expect(page).to have_content("Edit Project")
@@ -30,20 +39,12 @@ require 'rails_helper'
     end
 
     scenario "When a user deletes a project all related data should be deleted" do
-      Project.create!(
-        name: "Find Yellow Bird",
-        )
-      visit root_path
-      click_link("Sign Up")
-      fill_in "First Name", with: "Harrison"
-      fill_in "Last Name", with: "Ford"
-      fill_in "Email", with: "star@wars.com"
-      fill_in "Password", with: "yoda"
-      fill_in "Password Confirmation", with: "yoda"
-      click_button("Sign Up")
+      click_on("Create Project")
+      fill_in "Name", with: "Breathe Fire on Unicycle"
+      click_button("Create Project")
 
       visit projects_path
-      click_on("Find Yellow Bird")
+      page.all(:link,"Breathe Fire on Unicycle")[1].click
       click_on("0 Tasks")
       click_on("Create Task")
       fill_in "Description", with: "Go Outside"
@@ -53,13 +54,8 @@ require 'rails_helper'
       fill_in "comment_comment", with: "But which door do I use to go outside?"
       click_button("Add Comment")
       visit projects_path
-      click_on("Find Yellow Bird")
-      click_on("0 Memberships")
-      within '.well' do
-        select "Harrison Ford", from: "membership_user_id"
-        select "Member", from: "membership_title"
-        click_on("Add New Member")
-      end
+      page.all(:link,"Breathe Fire on Unicycle")[1].click
+      click_on("1 Membership")
       visit about_path
       expect(page).to have_content("1 Project")
       expect(page).to have_content("1 Task")
@@ -68,7 +64,7 @@ require 'rails_helper'
       expect(page).to have_content("1 Comment")
 
       visit projects_path
-      click_on("Find Yellow Bird")
+      page.all(:link,"Breathe Fire on Unicycle")[1].click
       within '.well' do
         click_on("Delete")
       end

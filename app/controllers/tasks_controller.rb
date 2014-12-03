@@ -1,11 +1,11 @@
 class TasksController < ApplicationController
 
-  before_action :authorize
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
-  before_action :membership_id_match
   before_action do
     @project = Project.find(params[:project_id])
   end
+  before_action :authorize
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :membership_id_match
 
   def index
     if params[:filter_by] == "all"

@@ -1,58 +1,79 @@
 require 'rails_helper'
 
   feature "memberships" do
+    
     before do
-      project = Project.create!(
-        name: "Scale Mountain on Pogo Stick"
-      )
-      user = User.create!(
-        first_name: "Elmer",
-        last_name: "Fudd",
-        email: "elmer@fudd.com",
-        password: "wabbit",
-        password_confirmation: "wabbit"
-      )
-    end
+        User.create!(
+          first_name: "Barry",
+          last_name: "Bonds",
+          email: "base@ball.com",
+          password: "baseball",
+          password_confirmation: "baseball"
+        )
+        user = User.create!(
+          first_name: "Elmer",
+          last_name: "Fudd",
+          email: "elmer@fudd.com",
+          password: "wabbit",
+          password_confirmation: "wabbit"
+        )
+         visit signin_path
+         fill_in "Email", with: "elmer@fudd.com"
+         fill_in "Password", with: "wabbit"
+         click_button "Sign in"
+         click_on "Create Project"
+         fill_in "Name", with: "Scale Mountain on Pogo Stick"
+         click_button "Create Project"
+      end
 
     scenario "Link to projects memberships index appears on the project show page" do
-      visit projects_path
-      expect(page).to have_content("0")
-      page.all(:link,"0")[0].click
+      within "table.table" do
+        page.all(:link,"0")[0].click
+      end
       expect(page).to have_content "Scale Mountain on Pogo Stick"
     end
 
     scenario "Users must enter users and roles for memberships" do
       visit projects_path
-      page.all(:link,"0")[0].click
+      page.all(:link,"Scale Mountain on Pogo Stick")[1].click
+      click_on("1 Membership")
       click_on("Add New Member")
       expect(page).to have_content("User can't be blank")
     end
 
     scenario "Users can add members to projects" do
       visit projects_path
-      page.all(:link,"0")[0].click
+      page.all(:link,"Scale Mountain on Pogo Stick")[1].click
+      click_on("1 Membership")
       within ".table" do
-        expect(page).to have_no_content("Elmer Fudd")
-        expect(page).to have_no_content("Owner")
+        expect(page).to have_no_content("Barry Bonds")
       end
       within ".well" do
-        select "Elmer Fudd", from: "membership_user_id"
-        select "Owner", from: "membership_title"
+        select "Barry Bonds", from: "membership_user_id"
+        select "Member", from: "membership_title"
       end
       click_on("Add New Member")
-      expect(page).to have_content("Elmer Fudd was added successfully.")
-      expect(page).to have_content("Elmer Fudd")
-      expect(page).to have_content("Owner")
-      expect(page).to have_button("Update")
+      expect(page).to have_content("Barry Bonds was added successfully.")
+      within ".table" do
+        expect(page).to have_content("Barry Bonds")
+        expect(page).to have_content("Member")
+        expect(page).to have_button("Update")
+      end
     end
 
   scenario "Users cannot add the same member to a project twice" do
     visit projects_path
-    page.all(:link,"0")[0].click
-    select "Elmer Fudd", from: "membership_user_id"
-    select "Owner", from: "membership_title"
-    click_on "Add New Member"
-    select "Elmer Fudd", from: "membership_user_id"
+    page.all(:link,"Scale Mountain on Pogo Stick")[1].click
+    click_on("1 Membership")
+    within ".well" do
+      select "Barry Bonds", from: "membership_user_id"
+      select "Member", from: "membership_title"
+    end
+    click_on("Add New Member")
+    within ".well" do
+      select "Barry Bonds", from: "membership_user_id"
+      select "Owner", from: "membership_title"
+    end
     click_on("Add New Member")
     expect(page).to have_content("User has already been added")
   end
@@ -61,7 +82,6 @@ require 'rails_helper'
     project = Project.create!(
       name: "Make River of Cheese"
     )
-    visit projects_path
     page.all(:link,"0")[0].click
     select "Elmer Fudd", from: "membership_user_id"
     select "Owner", from: "membership_title"
@@ -97,26 +117,33 @@ require 'rails_helper'
 
   scenario "Users can change the role of project members" do
     visit projects_path
-    page.all(:link,"0")[0].click
-    within '.well' do
-      select "Elmer Fudd", from: "membership_user_id"
-      select "Member", from: "membership_title"
-      click_on("Add New Member")
+    page.all(:link,"Scale Mountain on Pogo Stick")[1].click
+    click_on("1 Membership")
+    within ".table" do
+      expect(page).to have_no_content("Barry Bonds")
     end
+    within ".well" do
+      select "Barry Bonds", from: "membership_user_id"
+      select "Owner", from: "membership_title"
+    end
+    click_on("Add New Member")
     within '.table' do
-       select "Owner", from: "membership_title"
+       select "Member", from: "membership_title"
     end
     click_on("Update")
   end
 
   scenario "Users can remove project members" do
     visit projects_path
-    page.all(:link,"0")[0].click
-    select "Elmer Fudd", from: "membership_user_id"
-    select "Owner", from: "membership_title"
+    page.all(:link,"Scale Mountain on Pogo Stick")[1].click
+    click_on("1 Membership")
+    within ".well" do
+      select "Barry Bonds", from: "membership_user_id"
+      select "Owner", from: "membership_title"
+    end
     click_on("Add New Member")
     find('.glyphicon').click
-    expect(page).to have_content "Elmer Fudd was removed successfully."
+    expect(page).to have_content "Barry Bonds was removed successfully."
   end
 
   end

@@ -14,7 +14,7 @@ require 'rails_helper'
     fill_in "Password", with: "baseball"
     fill_in "Password Confirmation", with: "baseball"
     click_button("Sign Up")
-    expect(current_path).to eq root_path
+    expect(current_path).to eq new_project_path
     expect(page).to have_content("Babe Ruth")
     expect(page).to have_content("Sign Out")
     expect(page).to have_no_content("Sign In")

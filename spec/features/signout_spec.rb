@@ -2,21 +2,13 @@ require 'rails_helper'
 
   feature "signout" do
     scenario "User signs out of gCamp" do
-      visit root_path
-      click_on("Sign Up")
-      fill_in "First Name", with: "Miss"
-      fill_in "Last Name", with: "Piggy"
-      fill_in "Email", with: "love@kermie.com"
-      fill_in "Password", with: "pink"
-      fill_in "Password Confirmation", with: "pink"
-      click_button("Sign Up")
-      expect(page).to have_content("Miss Piggy")
-      expect(page).to have_content("Sign Out")
-      click_on("Sign Out")
-      expect(current_path).to eq root_path
-      expect(page).to have_content("Sign Up")
-      expect(page).to have_content("Sign In")
-
+      User.create!(
+        first_name: "Miss",
+        last_name: "Piggy",
+        email: "love@kermie.com",
+        password: "pink",
+        password_confirmation: "pink"
+        )
       visit root_path
       click_on("Sign In")
       fill_in "Email", with: "love@kermie.com"

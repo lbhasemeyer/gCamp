@@ -1,26 +1,31 @@
 require 'rails_helper'
 
   feature "tasks" do
+
+    before do
+      user = User.create!(
+        first_name: "Easter",
+        last_name: "Bunny",
+        email: "easter@eggs.com",
+        password: "chocolate",
+        password_confirmation: "chocolate"
+      )
+       visit signin_path
+       fill_in "Email", with: "easter@eggs.com"
+       fill_in "Password", with: "chocolate"
+       click_button "Sign in"
+       click_on "Create Project"
+       fill_in "Name", with: "Shampoo Carpet"
+       click_button "Create Project"
+    end
+
     scenario "User creates an empty task" do
-      Project.create!(
-        name: "Food Fight",
-        )
-      visit root_path
-      click_on("Projects")
-      page.all(:link,"0")[1].click
       click_on("Create Task")
       click_button("Create Task")
       expect(page).to have_content("Description can't be blank")
     end
 
     scenario "User creates, edits, and destroys a correct task" do
-      Project.create!(
-        name: "Shampoo Carpet",
-        )
-      visit root_path
-      click_on("Projects")
-      page.all(:link,"0")[1].click
-      expect(page).to have_no_content("Food Fight")
       click_on("Create Task")
       fill_in "Description", with: "Food Fight"
       fill_in "Due date", with: "12/12/3222"
@@ -30,7 +35,6 @@ require 'rails_helper'
       expect(page).to have_content("Food Fight")
       expect(page).to have_content("False")
       expect(page).to have_content("12/12/3222")
-
 
       click_on("Edit")
       expect(page).to have_content("Edit task")
@@ -53,13 +57,6 @@ require 'rails_helper'
     end
 
     scenario "Task All / Incomplete toggle works" do
-      project = Project.create!(
-        name: "Shampoo Carpet"
-        )
-      visit root_path
-      click_on("Projects")
-      page.all(:link,"0")[1].click
-      expect(page).to have_no_content("Food Fight")
       click_on("Create Task")
       fill_in "Description", with: "Ride Tricycle"
       fill_in "Due date", with: "12/12/2016"
@@ -79,36 +76,15 @@ require 'rails_helper'
     end
 
     scenario "When a user deletes a task all related comments should be deleted" do
-      Project.create!(
-        name: "Juggle Chain Saws",
-        )
-      visit root_path
-      click_link("Sign Up")
-      fill_in "First Name", with: "Marky"
-      fill_in "Last Name", with: "Mark"
-      fill_in "Email", with: "marky@mark.com"
-      fill_in "Password", with: "mark"
-      fill_in "Password Confirmation", with: "mark"
-      click_button("Sign Up")
-
-      visit projects_path
-      click_on("Juggle Chain Saws")
-      click_on("0 Tasks")
       click_on("Create Task")
-      fill_in "Description", with: "Take a Deep Breath"
+      fill_in "Description", with: "Juggle Chain Saws"
       fill_in "Due date", with: "12/12/2016"
       click_button("Create Task")
-      click_link("Take a Deep Breath")
+      click_link("Juggle Chain Saws")
       fill_in "comment_comment", with: "But which door do I use to go outside?"
       click_button("Add Comment")
       visit projects_path
-      click_on("Juggle Chain Saws")
-      click_on("0 Memberships")
-      within '.well' do
-        select "Marky Mark", from: "membership_user_id"
-        select "Member", from: "membership_title"
-        click_on "Add New Member"
-      end
+      page.all(:link,"Shampoo Carpet")[1].click
       visit about_path
       expect(page).to have_content("1 Project")
       expect(page).to have_content("1 Task")
@@ -117,7 +93,7 @@ require 'rails_helper'
       expect(page).to have_content("1 Comment")
 
       visit projects_path
-      click_link("Juggle Chain Saws")
+      page.all(:link,"Shampoo Carpet")[1].click
       click_on("1 Task")
       find('.glyphicon').click
       visit about_path
@@ -127,5 +103,4 @@ require 'rails_helper'
       expect(page).to have_content("1 User")
       expect(page).to have_content("0 Comments")
     end
-
-end
+  end

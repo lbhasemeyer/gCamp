@@ -1,10 +1,10 @@
 class MembershipsController < ApplicationController
 
-  before_action :authorize
-  before_action :membership_id_match
   before_action do
     @project = Project.find(params[:project_id])
   end
+  before_action :authorize
+  before_action :membership_id_match
 
   def index
     @membership = Membership.new
