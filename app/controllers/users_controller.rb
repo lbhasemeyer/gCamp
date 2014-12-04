@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :authorize
-  before_action :authorize_user, only: [:edit, :update, :destroy]
+  before_action :authorize_user, only: [:show, :edit, :update, :destroy]
 
 
   def index
@@ -47,13 +46,8 @@ class UsersController < ApplicationController
 
   private
 
-  def authorize
-    unless current_user
-      redirect_to signin_path, notice: "You must be logged in to access that action"
-    end
-  end
-
   def authorize_user
+    @user = User.find(params[:id])
     unless current_user == @user
       raise AccessDenied
     end
