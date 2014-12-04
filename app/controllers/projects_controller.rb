@@ -49,7 +49,7 @@ class ProjectsController < ApplicationController
 
   def authorize_membership
     @project = Project.find(params[:id])
-    unless current_user.is_project_member?(@project)
+    unless current_user.is_member?(@project)
       raise AccessDenied
     end
   end

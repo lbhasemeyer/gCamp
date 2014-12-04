@@ -5,7 +5,8 @@ class MembershipsController < ApplicationController
   end
   before_action :require_login
   before_action :authorize_membership
-  before_action :authorize_owner, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authorize_owner, only: [:new, :create, :edit, :update]
+  before_action :owner_or_membership_is_self, only: [:destroy]
 
   def index
     @membership = Membership.new
@@ -33,9 +34,9 @@ class MembershipsController < ApplicationController
 
   def destroy
     @membership = @project.memberships.find(params[:id])
-    @membership.destroy
-    redirect_to project_memberships_path, notice: "#{@membership.user.full_name} was removed successfully."
-  end
+      @membership.destroy
+      redirect_to projects_path, notice: "#{@membership.user.full_name} was removed successfully."
+    end
 
   private
 
@@ -46,11 +47,18 @@ class MembershipsController < ApplicationController
   end
 
   def authorize_membership
-    raise AccessDenied unless current_user.projects.include?(@project)
+    current_user.projects.include?(@project)
     # project_list = Membership.where(user_id: current_user.id).pluck(:project_id)
     # unless project_list.include?(@project.id)
     #   raise AccessDenied
     # end
+  end
+
+  def owner_or_membership_is_self
+    @project = Project.find(params[:project_id])
+      unless current_user.is_owner?(@project) || current_user.is_member?(@project)
+        raise AccessDenied
+      end
   end
 
   def authorize_owner
