@@ -6,7 +6,6 @@ class MembershipsController < ApplicationController
   before_action :require_login
   before_action :authorize_membership
   before_action :authorize_owner, only: [:new, :create, :edit, :update]
-  before_action :owner_or_membership_is_self, only: [:destroy]
 
   def index
     @membership = Membership.new
@@ -34,9 +33,17 @@ class MembershipsController < ApplicationController
 
   def destroy
     @membership = @project.memberships.find(params[:id])
-      @membership.destroy
-      redirect_to projects_path, notice: "#{@membership.user.full_name} was removed successfully."
+    if @membership.destroy
+      if current_user == @membership.user
+        @membership.destroy
+        redirect_to projects_path, notice: "#{@membership.user.full_name} was removed successfully."
+      else current_user.is_owner?(@project)
+        redirect_to project_memberships_path, notice: "#{@membership.user.full_name} was removed successfully."
+      end
+    else
+      redirect_to project_memberships_path, notice: "You cannot delete the last owner of a project.  Please fix this and try again."
     end
+  end
 
   private
 
@@ -52,13 +59,6 @@ class MembershipsController < ApplicationController
     # unless project_list.include?(@project.id)
     #   raise AccessDenied
     # end
-  end
-
-  def owner_or_membership_is_self
-    @project = Project.find(params[:project_id])
-      unless current_user.is_owner?(@project) || current_user.is_member?(@project)
-        raise AccessDenied
-      end
   end
 
   def authorize_owner
