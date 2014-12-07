@@ -21,4 +21,8 @@ class User < ActiveRecord::Base
     projects.include?(project)
   end
 
+  def is_co_project_with?(user)
+    (projects & user.projects).present?
+  end
+
 end

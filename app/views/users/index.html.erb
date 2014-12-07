@@ -20,10 +20,16 @@
       <% @users.each do |user| %>
         <tr>
           <td><%= link_to ("#{user.first_name} #{user.last_name}"), user_path(user) %></td>
-          <td><%= mail_to user.email %></td>
-          <td><%= link_to 'Edit', edit_user_path(user), class: "pull-right" %></td>
-        </tr>
+          <% if current_user.is_co_project_with?(user) %>
+            <td><%= mail_to user.email %></td>
+          <% end %>
+          <% if current_user == user %>
+            <td><%= link_to 'Edit', edit_user_path(user), class: "pull-right" %></td>
+          <% else %>
+            <td></td>
+          <% end %>
       <% end %>
+        </tr>
     </tbody>
   </table>
 
