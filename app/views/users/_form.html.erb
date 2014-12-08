@@ -46,12 +46,14 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-5">
-        <%= f.check_box :admin %>
-        <%= f.label :admin %>
+  <% if current_user.admin %>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-5">
+          <%= f.check_box :admin %>
+          <%= f.label :admin %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-5">
