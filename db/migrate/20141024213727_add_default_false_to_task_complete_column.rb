@@ -1,5 +1,4 @@
 class AddDefaultFalseToTaskCompleteColumn < ActiveRecord::Migration
   def change
-    change_column_default :tasks, :complete, :False
-  end
+    add_column :users, :admin, :boolean
 end
