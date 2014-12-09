@@ -22,7 +22,7 @@ class Membership < ActiveRecord::Base
   end
 
   def cannot_update_last_owner
-    if owner.count >= 2 && title == "Owner"
+    if owner.count > 1 
       return true
     elsif owner.count == 1 && title == "Member"
       # owner count is when you get to the page, title is what you are changing it to.
