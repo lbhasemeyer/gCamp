@@ -9,7 +9,7 @@ admin = User.create!(
   last_name: 'User',
   email: 'admin@example.com',
   password: 'password',
-  admin: true
+  admin: true,
 )
 
 owner = User.create!(
@@ -37,17 +37,17 @@ multiple_owners = Project.create!(name: 'Multiple Owners')
 Membership.create!(
   project: multiple_owners,
   user: owner,
-  role: 'owner'
+  role: 'Owner'
 )
 Membership.create!(
   project: multiple_owners,
   user: user,
-  role: 'owner'
+  role: 'Owner'
 )
 Membership.create!(
   project: multiple_owners,
   user: member,
-  role: 'member'
+  role: 'Member'
 )
 
 task1 = Task.create!(
@@ -80,12 +80,12 @@ single_owner = Project.create!(name: 'Single Owner')
 Membership.create!(
   project: single_owner,
   user: owner,
-  title: 'owner'
+  title: 'Owner'
 )
 Membership.create!(
   project: single_owner,
   user: member,
-  title: 'member'
+  title: 'Member'
 )
 
 
