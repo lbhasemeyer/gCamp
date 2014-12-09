@@ -35,7 +35,6 @@ class MembershipsController < ApplicationController
     @membership = @project.memberships.find(params[:id])
     if @membership.destroy
       if current_user.is_owner?(@project) || current_user.admin
-        @membership.destroy
         redirect_to project_memberships_path, notice: "#{@membership.user.full_name} was removed successfully."
       else
         redirect_to projects_path, notice: "#{@membership.user.full_name} was removed successfully."
