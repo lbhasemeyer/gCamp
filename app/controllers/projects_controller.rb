@@ -40,10 +40,9 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project = Project.find(params[:id])
-    if @project.destroy
-      if current_user.is_owner?(@project) || current_user.admin
-        redirect_to projects_url, notice: 'Project was successfully deleted.'
-      end
+    if current_user.is_owner?(@project) || current_user.admin
+      @project.destroy
+      redirect_to projects_path, notice: 'Project was successfully deleted.'
     else
       redirect_to project_path, notice: "You don't have permission to delete this project."
     end

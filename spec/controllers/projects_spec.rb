@@ -80,17 +80,19 @@ describe ProjectsController do
       expect(response.status).to eq(404)
     end
 
-    it "allows owners to delete" do
+    it "allows project owners to delete" do
       Membership.create!(
         user: @user,
         project: @project,
         title: 'Owner'
       )
       session[:user_id] = @user.id
+      count = Project.count
       get :destroy, id: @project.id
       expect(response.status).to eq(302)
+      expect(@projects.count).to eq(count -1)
     end
-
+    
     it "allows admin to delete" do
     end
   end

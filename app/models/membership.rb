@@ -10,7 +10,6 @@ class Membership < ActiveRecord::Base
   before_destroy :cannot_delete_last_owner
   before_update :cannot_update_last_owner
 
-
   def owner
     project.memberships.where(title: "Owner")
   end
@@ -22,7 +21,7 @@ class Membership < ActiveRecord::Base
   end
 
   def cannot_update_last_owner
-    if owner.count > 1 
+    if owner.count > 1
       return true
     elsif owner.count == 1 && title == "Member"
       # owner count is when you get to the page, title is what you are changing it to.

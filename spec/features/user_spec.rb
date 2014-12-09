@@ -1,8 +1,29 @@
 require 'rails_helper'
 
   feature "users" do
+    before do
+        User.create!(
+          first_name: "April",
+          last_name: "O'Neil",
+          email: "turtle@power.com",
+          admin: true,
+          password: "pizza",
+          password_confirmation: "pizza"
+        )
+        User.create!(
+          first_name: "Fresh",
+          last_name: "Prince",
+          email: "bel@air.com",
+          admin: false,
+          password: "80",
+          password_confirmation: "80"
+        )
+    end
     scenario "User creates a user" do
-      skip
+      visit signin_path
+      fill_in "Email", with: "turtle@power.com"
+      fill_in "Password", with: "pizza"
+      click_button "Sign in"
       visit users_path
       expect(page).to have_no_content("Ron Burgundy")
       click_on("Create User")
@@ -20,7 +41,6 @@ require 'rails_helper'
       click_button("Create User")
       expect(page).to have_content("User was successfully created.")
       expect(page).to have_content("Ron Burgundy")
-      expect(page).to have_content("anchor@man.com")
 
       click_on("Edit")
       expect(page).to have_content("Edit User")
@@ -30,7 +50,6 @@ require 'rails_helper'
       click_button("Update User")
       expect(page).to have_content("User was successfully updated.")
       expect(page).to have_content("Lucille Ball")
-      expect(page).to have_content("ilove@lucy.com")
 
       click_on("Edit")
       click_on("Delete User")
@@ -40,21 +59,32 @@ require 'rails_helper'
     end
 
     scenario "When users delete users, associated data should also be deleted" do
-      skip
-      Project.create!(
-        name: "Break Mug",
-        )
-      visit root_path
-      click_on("Sign Up")
-      fill_in "First Name", with: "April"
-      fill_in "Last Name", with: "O'Neil"
+      visit signin_path
       fill_in "Email", with: "turtle@power.com"
       fill_in "Password", with: "pizza"
-      fill_in "Password Confirmation", with: "pizza"
-      click_button("Sign Up")
-
+      click_button "Sign in"
       visit projects_path
-      click_on("Break Mug")
+      click_on("Create Project")
+      fill_in "Name", with: "Defeat Shredder"
+      click_on("Create Project")
+      expect(page).to have_content("Project was successfully created")
+      expect(page).to have_content("Defeat Shredder")
+      visit projects_path
+      page.all(:link,"Defeat Shredder")[1].click
+      click_on("1 Membership")
+      within '.well' do
+        select "Fresh Prince", from: "membership_user_id"
+        select "Member", from: "membership_title"
+        click_on("Add New Member")
+      end
+
+      click_on("Sign Out")
+      visit signin_path
+      fill_in "Email", with: "bel@air.com"
+      fill_in "Password", with: "80"
+      click_button "Sign in"
+      visit projects_path
+      page.all(:link,"Defeat Shredder")[1].click
       click_on("0 Tasks")
       click_on("Create Task")
       fill_in "Description", with: "Get Crisco"
@@ -63,14 +93,22 @@ require 'rails_helper'
       click_link("Get Crisco")
       fill_in "comment_comment", with: "This is awesome."
       click_button("Add Comment")
-      visit projects_path
-      click_on("Break Mug")
-      click_on("0 Memberships")
-      within '.well' do
-        select "April O'Neil", from: "membership_user_id"
-        select "Member", from: "membership_title"
-        click_on("Add New Member")
-      end
+
+      click_on("Sign Out")
+      visit signin_path
+      fill_in "Email", with: "turtle@power.com"
+      fill_in "Password", with: "pizza"
+      click_button "Sign in"
+      visit about_path
+      expect(page).to have_content("1 Project")
+      expect(page).to have_content("1 Task")
+      expect(page).to have_content("2 Project Members")
+      expect(page).to have_content("2 Users")
+      expect(page).to have_content("1 Comment")
+
+      visit users_path
+      page.all(:link,"Edit")[1].click
+      click_on("Delete")
       visit about_path
       expect(page).to have_content("1 Project")
       expect(page).to have_content("1 Task")
@@ -78,23 +116,12 @@ require 'rails_helper'
       expect(page).to have_content("1 User")
       expect(page).to have_content("1 Comment")
 
-      visit users_path
-      click_link("Edit")
-      click_on("Delete")
-      visit about_path
-      expect(page).to have_content("1 Project")
-      expect(page).to have_content("1 Task")
-      expect(page).to have_content("0 Project Members")
-      expect(page).to have_content("0 Users")
-      expect(page).to have_content("1 Comment")
-
       visit projects_path
-      click_on("Break Mug")
+      page.all(:link,"Defeat Shredder")[1].click
       click_on("1 Task")
       click_on("Get Crisco")
-      expect(page).to have_no_content("April O'Neil")
+      expect(page).to have_no_content("Fresh Prince")
       expect(page).to have_content("(deleted user)")
-
     end
 
 end
