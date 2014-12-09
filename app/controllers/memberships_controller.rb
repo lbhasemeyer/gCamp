@@ -23,11 +23,10 @@ class MembershipsController < ApplicationController
 
   def update
     @membership = @project.memberships.find(params[:id])
-    @membership.update(membership_params)
-    if @membership.save
+    if @membership.update(membership_params)
       redirect_to project_memberships_path, notice: "#{@membership.user.full_name} was updated successfully."
     else
-      render :index
+      redirect_to project_memberships_path, notice: "You cannot change the last owner of a project."
     end
   end
 
