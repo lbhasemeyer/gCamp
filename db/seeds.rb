@@ -37,17 +37,17 @@ multiple_owners = Project.create!(name: 'Multiple Owners')
 Membership.create!(
   project: multiple_owners,
   user: owner,
-  role: 'Owner'
+  title: 'Owner'
 )
 Membership.create!(
   project: multiple_owners,
   user: user,
-  role: 'Owner'
+  title: 'Owner'
 )
 Membership.create!(
   project: multiple_owners,
   user: member,
-  role: 'Member'
+  title: 'Member'
 )
 
 task1 = Task.create!(
