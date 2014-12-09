@@ -12,7 +12,7 @@
       </div>
   </div>
 
-  <% if current_user.is_owner?(@project) %>
+  <% if current_user.is_owner?(@project) || current_user.admin %>
     <div class="well form-inline col-sm-5">
       <div class="form-group">
         <%= form_for [@project, @membership] do |f| %>
@@ -26,7 +26,7 @@
     </div>
   <% end %>
 
-  <% if current_user.is_owner?(@project) %>
+  <% if current_user.is_owner?(@project) || current_user.admin %>
     <table class="table">
       <tbody>
         <% @project.memberships.each do |membership| %>

@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
-  before_action :authorize_user, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_user, only: [:show, :edit, :update]
+  before_action :authorize_destroy, only: [:destroy]
 
   def index
     @users = User.all
@@ -29,12 +30,12 @@ class UsersController < ApplicationController
   end
 
   def update
-      @user = User.find(params[:id])
-      if @user.update(user_params)
-        redirect_to users_path, notice: 'User was successfully updated.'
-      else
-        render :edit
-      end
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to users_path, notice: 'User was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -47,13 +48,19 @@ class UsersController < ApplicationController
 
   def authorize_user
     @user = User.find(params[:id])
-    unless current_user == @user
+    unless current_user == @user || current_user.admin
+      raise AccessDenied
+    end
+  end
+
+  def authorize_destroy
+    unless current_user.admin
       raise AccessDenied
     end
   end
 
   def user_params
-    if current_user.admin 
+    if current_user.admin
       params.require(:user).permit(:first_name, :last_name, :email, :admin, :password, :password_confirmation)
     else
       params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)

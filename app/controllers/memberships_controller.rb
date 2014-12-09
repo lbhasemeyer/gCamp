@@ -3,9 +3,9 @@ class MembershipsController < ApplicationController
   before_action do
     @project = Project.find(params[:project_id])
   end
-  before_action :require_login
   before_action :authorize_membership
   before_action :authorize_owner, only: [:new, :create, :edit, :update]
+  before_action :authorize_destroy, only: [:destroy]
 
   def index
     @membership = Membership.new
@@ -34,11 +34,11 @@ class MembershipsController < ApplicationController
   def destroy
     @membership = @project.memberships.find(params[:id])
     if @membership.destroy
-      if current_user == @membership.user
+      if current_user.is_owner?(@project) || current_user.admin
         @membership.destroy
-        redirect_to projects_path, notice: "#{@membership.user.full_name} was removed successfully."
-      else current_user.is_owner?(@project)
         redirect_to project_memberships_path, notice: "#{@membership.user.full_name} was removed successfully."
+      else
+        redirect_to projects_path, notice: "#{@membership.user.full_name} was removed successfully."
       end
     else
       redirect_to project_memberships_path, notice: "You cannot delete the last owner of a project.  Please fix this and try again."
@@ -47,23 +47,23 @@ class MembershipsController < ApplicationController
 
   private
 
-  def require_login
-    unless current_user
-      redirect_to signin_path, notice: "You must be logged in to access that action"
-    end
-  end
-
   def authorize_membership
-    current_user.projects.include?(@project)
-    # project_list = Membership.where(user_id: current_user.id).pluck(:project_id)
-    # unless project_list.include?(@project.id)
-    #   raise AccessDenied
-    # end
+    unless current_user.projects.include?(@project) || current_user.admin
+      raise AccessDenied
+    end
   end
 
   def authorize_owner
     @project = Project.find(params[:project_id])
-    unless current_user.is_owner?(@project)
+    unless current_user.is_owner?(@project) || current_user.admin
+      raise AccessDenied
+    end
+  end
+
+  def authorize_destroy
+    membership = Membership.find(params[:id])
+    @project = Project.find(params[:project_id])
+    unless current_user.is_owner?(@project)|| current_user == membership.user || current_user.admin
       raise AccessDenied
     end
   end
