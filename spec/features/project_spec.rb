@@ -39,7 +39,6 @@ require 'rails_helper'
     end
 
     scenario "When a user deletes a project all related data should be deleted" do
-      skip
       click_on("Create Project")
       fill_in "Name", with: "Breathe Fire on Unicycle"
       click_button("Create Project")
