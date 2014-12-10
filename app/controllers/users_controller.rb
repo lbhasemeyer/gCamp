@@ -22,7 +22,6 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      session[:user_id] = @user.id
       redirect_to users_path, notice: 'User was successfully created.'
     else
       render :new
@@ -61,9 +60,9 @@ class UsersController < ApplicationController
 
   def user_params
     if current_user.admin
-      params.require(:user).permit(:first_name, :last_name, :email, :admin, :password, :password_confirmation)
+      params.require(:user).permit(:first_name, :last_name, :email, :admin, :password, :password_confirmation, :PTtoken)
     else
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :PTtoken)
     end
     # foo = params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
     # if current_user.admin

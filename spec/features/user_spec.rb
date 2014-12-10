@@ -19,7 +19,7 @@ require 'rails_helper'
           password_confirmation: "80"
         )
     end
-    scenario "User creates a user" do
+    scenario "User creates, edits, and destroys a user" do
       visit signin_path
       fill_in "Email", with: "turtle@power.com"
       fill_in "Password", with: "pizza"
@@ -42,7 +42,7 @@ require 'rails_helper'
       expect(page).to have_content("User was successfully created.")
       expect(page).to have_content("Ron Burgundy")
 
-      click_on("Edit")
+      page.all(:link,"Edit")[2].click
       expect(page).to have_content("Edit User")
       fill_in "First name", with: "Lucille"
       fill_in "Last name", with: "Ball"
@@ -51,7 +51,8 @@ require 'rails_helper'
       expect(page).to have_content("User was successfully updated.")
       expect(page).to have_content("Lucille Ball")
 
-      click_on("Edit")
+      visit users_path
+      page.all(:link,"Edit")[2].click
       click_on("Delete User")
       expect(page).to have_content("User was successfully deleted")
       expect(page).to have_no_content("Lucille Ball")

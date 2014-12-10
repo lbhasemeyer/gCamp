@@ -46,6 +46,13 @@
     </div>
   <% end %>
 
+  <div class="form-group">
+      <label class="col-sm-2 control-label"for="PTtoken">Pivotal Tracker Token</label>
+    <div class="col-sm-4">
+      <%= f.text_field :PTtoken, class: "col-sm-3 form-control" %>
+    </div>
+  </div>
+
   <% if current_user.admin %>
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-5">

@@ -35,9 +35,8 @@ require 'rails_helper'
       click_button("Create Task")
       within 'span.badge' do
       expect(page).to have_content('0')
-    end
-
-    click_on "Find Wig"
+      end
+      click_on "Find Wig"
       expect(page).to have_button("Add Comment")
       fill_in "comment_comment", with: "I looked at the grocery store..."
       click_button("Add Comment")

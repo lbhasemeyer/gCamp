@@ -25,9 +25,9 @@ feature "signin" do
 
     click_on("Mr Bean")
     expect(page).to have_content("Mr Bean")
-    expect(page).to have_content("First Name: Mr")
-    expect(page).to have_content("Last Name: Bean")
-    expect(page).to have_content("Email: mr@bean.com")
+    expect(page).to have_content("First Name Mr")
+    expect(page).to have_content("Last Name Bean")
+    expect(page).to have_content("Email mr@bean.com")
 end
 
 end

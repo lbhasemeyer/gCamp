@@ -22,9 +22,9 @@ require 'rails_helper'
 
     click_on("Babe Ruth")
     expect(page).to have_content("Babe Ruth")
-    expect(page).to have_content("First Name: Babe")
-    expect(page).to have_content("Last Name: Ruth")
-    expect(page).to have_content("Email: babe@ruth.com")
+    expect(page).to have_content("First Name Babe")
+    expect(page).to have_content("Last Name Ruth")
+    expect(page).to have_content("Email babe@ruth.com")
 
   end
 

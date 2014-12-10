@@ -7,14 +7,17 @@
 
   <dl class="dl-horizontal">
 
-    <dt>First Name:</dt>
+    <dt>First Name</dt>
     <dd><%= @user.first_name %></dd>
 
-    <dt>Last Name:</dt>
+    <dt>Last Name</dt>
     <dd><%= @user.last_name %></dd>
 
-    <dt>Email:</dt>
+    <dt>Email</dt>
     <dd><%= mail_to @user.email %></dd>
+
+    <dt>Pivotal Tracker Token</dt>
+    <dd><%= @user.PTtoken %></dd>
 
   </dl>
 
