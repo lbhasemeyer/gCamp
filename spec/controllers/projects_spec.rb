@@ -100,10 +100,29 @@ describe ProjectsController do
       expect(response.status).to eq(200)
     end
 
-    it "allows admin to create project" do
-    end
+    it "allows admin to create project"
   end
 
+  describe "#create" do
+    it "redirects to project tasks on save" do
+      user = User.create!(
+      first_name: "Kristi",
+      last_name: "Yamaguchi",
+      email: "ice@skate.com",
+      password: 'skate'
+      )
+      session[:user_id] = user.id
+      post :create, { project: {name: "Eat Apple while on Head"} }
+      project = Project.find_by(id: Membership.find_by(user_id: User.find_by(first_name: "Kristi").id).project_id)
+      expect(response).to redirect_to(project_tasks_path(project))
+    end
+
+    it "renders new if does not save"
+  end
+
+  describe "#update" do
+    it "has all the update tests"
+  end
 
   describe "#show" do
     before do

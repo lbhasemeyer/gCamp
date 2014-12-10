@@ -16,9 +16,10 @@
     <dt>Email</dt>
     <dd><%= mail_to @user.email %></dd>
 
+    <% if @user.PTtoken.present? %>
     <dt>Pivotal Tracker Token</dt>
-    <dd><%= @user.PTtoken %></dd>
-
+      <dd><%= @user.PTtoken[0..3] %><%= "*" * (@user.PTtoken.length-4) %></dd>
+    <% end %>
   </dl>
 
 
