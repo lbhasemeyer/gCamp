@@ -5,6 +5,9 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = Project.all
+    tracker_api = TrackerAPI.new
+    #we're never going to render this or pass to the view, so it's not an instance variable
+    @tracker_projects = tracker_api.projects(current_user.PTtoken)
   end
 
   def show

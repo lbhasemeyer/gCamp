@@ -11,6 +11,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem "capybara"
   gem 'launchy'
+  gem 'pry-rails'
 end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
@@ -27,6 +28,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'bcrypt', '~> 3.1.7'
 gem "i18n"
 gem 'faker'
+gem 'faraday', '~> 0.9.0'
 # Use SCSS for stylesheets
 # Use unicorn as the app server
 # gem 'unicorn'
