@@ -3,7 +3,7 @@
 Heroku URL:   https://secure-dawn-1128.herokuapp.com/
 
 [![Build Status](https://travis-ci.org/lbhasemeyer/gCamp.svg?branch=master)](https://travis-ci.org/lbhasemeyer/gCamp)
-
+[![Code Climate](https://codeclimate.com/github/lbhasemeyer/gCamp/badges/gpa.svg)](https://codeclimate.com/github/lbhasemeyer/gCamp)
 
 
 This README would normally document whatever steps are necessary to get the
