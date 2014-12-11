@@ -1,4 +1,6 @@
-# post create and update
+# @password = 'password'
+# @user = create_user(password: @password)
+# sign_in(@user, @password)
 
 require 'rails_helper'
 
@@ -6,15 +8,9 @@ describe ProjectsController do
 
   describe "#index" do
     before do
-      @user = User.create!(
-        first_name: "Joe",
-        last_name: "Example",
-        password: "password",
-        email: "joe@example.com",
-      )
-      @project = Project.create!(
-        name: "Acme"
-      )
+      @user = create_user
+      @project = create_project
+      @membership = create_membership
     end
 
     it "does not allow visitors to see index" do
@@ -29,112 +25,121 @@ describe ProjectsController do
     end
 
     it "allows project members to see index" do
-      Membership.create!(
-        user: @user,
-        project: @project,
-        title: 'Member'
-      )
       session[:user_id] = @user.id
       get :index
       expect(response.status).to eq(200)
     end
 
     it "allows project owners to see index" do
-      Membership.create!(
-        user: @user,
-        project: @project,
-        title: 'Owner'
-      )
       session[:user_id] = @user.id
       get :index
       expect(response.status).to eq(200)
     end
 
     it "allows admin to see index" do
+      @user = create_user(admin: true, email: "admin@example.com")
+      session[:user_id] = @user.id
+      get :index
+      expect(response.status).to eq(200)
     end
   end
 
+
   describe "#new" do
     before do
-      @user = User.create!(
-        first_name: "Joe",
-        last_name: "Example",
-        password: "password",
-        email: "joe@example.com",
-      )
-      @project = Project.create!(
-        name: "Acme"
-      )
+      @user = create_user
+      @project = create_project
     end
 
-    it "does not allow visitors to create project" do
+    it "does not allow visitors to see the new project page" do
       get :new
       expect(response.status).to redirect_to(signin_path)
     end
 
-    it "allows non-members to create project" do
+    it "allows non-members to see the new project page" do
       session[:user_id] = @user.id
       get :new
       expect(response.status).to eq(200)
     end
 
-    it "allows project members to create project" do
-      Membership.create!(
-        user: @user,
-        project: @project,
-        title: 'Member'
-      )
+    it "allows project members to see the new project page" do
+      @membership = create_membership
       session[:user_id] = @user.id
       get :new
       expect(response.status).to eq(200)
     end
 
-    it "allows project owners to create project" do
-      Membership.create!(
-        user: @user,
-        project: @project,
-        title: 'Owner'
-      )
+    it "allows project owners to see the new project page" do
+      @membership = create_membership(title: 'Owner')
       session[:user_id] = @user.id
       get :new
       expect(response.status).to eq(200)
     end
 
-    it "allows admin to create project"
+    it "allows admin to see the new project page" do
+      @user = create_user(admin: true, email: "admin@example.com")
+      session[:user_id] = @user.id
+      get :new
+      expect(response.status).to eq(200)
+    end
   end
+
 
   describe "#create" do
-    it "redirects to project tasks on save" do
-      user = User.create!(
-      first_name: "Kristi",
-      last_name: "Yamaguchi",
-      email: "ice@skate.com",
-      password: 'skate'
-      )
-      session[:user_id] = user.id
-      post :create, { project: {name: "Eat Apple while on Head"} }
-      project = Project.find_by(id: Membership.find_by(user_id: User.find_by(first_name: "Kristi").id).project_id)
-      expect(response).to redirect_to(project_tasks_path(project))
+    before do
+      @user = create_user
+      @user2 = create_user(email: "venus@planet.com")
+      @admin = create_user(admin: true, email: "admin@example.com")
     end
 
-    it "renders new if does not save"
+    it "doesn't let visitors create a project" do
+      session[:user_id] = nil
+      post :create, :project => { name: "Walk Around Christmas Tree" }
+      expect(response).to redirect_to(signin_path)
+    end
+
+    it "allows a user with no memberships to create a project" do
+      session[:user_id] = @user
+      post :create, :project => { name: "Make a Nalgene"}
+      expect(response).to redirect_to(project_tasks_path(Project.all.first))
+    end
+
+    it "allows a member to create a project" do
+      session[:user_id] = create_membership.user
+      post :create, :project => { name: "Make a Nalgene"}
+      expect(response).to redirect_to(project_tasks_path(Project.all.first))
+    end
+
+    it "allows an owner to create a project" do
+      session[:user_id] = create_ownership.user
+      post :create, :project => { name: "Make a Nalgene"}
+      expect(response).to redirect_to(project_tasks_path(Project.all.first))
+    end
+
+    it "allows an admin to create a project" do
+      session[:user_id] = @admin
+      post :create, :project => { name: "Eat 81 Cookies"}
+      expect(response).to redirect_to(project_tasks_path(Project.all.first))
+    end
+
+    it "redirects to project tasks on save" do
+      session[:user_id] = @user
+      post :create, :project => {name: "Eat Apple while on Head"}
+      expect(response).to redirect_to(project_tasks_path(Project.all.first))
+    end
+
+    it "renders new if save is unsuccessful" do
+      session[:user_id] = @user
+      post :create, :project => {name: ""}
+      expect(response).to render_template('new')
+    end
   end
 
-  describe "#update" do
-    it "has all the update tests"
-  end
 
   describe "#show" do
     before do
-      @user = User.create!(
-        first_name: "Joe",
-        last_name: "Example",
-        password: "password",
-        email: "joe@example.com",
-      )
-      @project = Project.create!(
-        name: "Acme"
-      )
+      @user = create_user
+      @project = create_project
     end
 
     it "does not allow visitors to see show page" do
@@ -149,94 +154,123 @@ describe ProjectsController do
     end
 
     it "allows project members to see show page" do
-      Membership.create!(
-        user: @user,
-        project: @project,
-        title: 'Member'
-      )
+      @membership = create_membership
       session[:user_id] = @user.id
       get :show, id: @project.id
       expect(response.status).to eq(200)
     end
 
     it "allows project owners to see show page" do
-      Membership.create!(
-        user: @user,
-        project: @project,
-        title: 'Owner'
-      )
+      @membership = create_membership(title: 'Owner')
       session[:user_id] = @user.id
       get :show, id: @project.id
       expect(response.status).to eq(200)
     end
 
     it "allows admin to see show page" do
+      @user = create_user(admin: true, email: "admin@example.com")
+      session[:user_id] = @user.id
+      get :show, id: @project.id
+      expect(response.status).to eq(200)
     end
   end
 
 
   describe "#edit" do
     before do
-      @user = User.create!(
-        first_name: "Joe",
-        last_name: "Example",
-        password: "password",
-        email: "joe@example.com",
-      )
-      @project = Project.create!(
-        name: "Acme"
-      )
+      @user = create_user
+      @project = create_project
     end
 
-    it "does not allow visitors to edit" do
+    it "does not allow visitors to see edit page" do
       get :edit, id: @project.id
       expect(response.status).to redirect_to(signin_path)
     end
 
-    it "does not allow non-members to edit" do
+    it "does not allow non-members to see edit page" do
       session[:user_id] = @user.id
       get :edit, id: @project.id
       expect(response.status).to eq(404)
     end
 
-    it "does not allow project members to edit" do
-      Membership.create!(
-        user: @user,
-        project: @project,
-        title: 'Member'
-      )
+    it "does not allow project members to see edit page" do
+      @membership = create_membership
       session[:user_id] = @user.id
       get :edit, id: @project.id
       expect(response.status).to eq(404)
     end
 
-    it "allows project owners to edit" do
-      Membership.create!(
-        user: @user,
-        project: @project,
-        title: 'Owner'
-      )
+    it "allows project owners to see edit page" do
+      @membership = create_membership(title: 'Owner')
       session[:user_id] = @user.id
       get :edit, id: @project.id
       expect(response.status).to eq(200)
     end
 
-    it "allows admin to edit" do
+    it "allows admin to see edit page" do
+      @user = create_user(admin: true, email: "admin@example.com")
+      session[:user_id] = @user.id
+      get :edit, id: @project.id
+      expect(response.status).to eq(200)
+    end
+  end
+
+
+  describe "#update" do
+    before do
+      @user = create_user
+      @user2 = create_user(email: "venus@planet.com")
+      @admin = create_user(admin: true, email: "admin@example.com")
+      @project = create_project
+      @project2 = create_project
+      @updated_project = {
+        project: {
+          name: 'Updated Project Name'
+          }, id: @project.id}
+    end
+
+    it "does not allow unassociated users to update an existing project" do
+      session[:user_id] = @user
+      put :update, @updated_project
+      expect(response.status).to eq(404)
+    end
+
+    it "does not allow members to update project" do
+      session[:user_id] = create_membership.user
+      put :update, @updated_project
+      expect(response.status).to eq(404)
+    end
+
+    it "allows owners to update project and redirect to project show page" do
+      session[:user_id] = create_ownership.user
+      put :update, @updated_project
+      expect(response).to redirect_to(project_path(Project.first))
+    end
+
+    it "allows admins to update project and be redirected" do
+      session[:user_id] = @admin
+      put :update, @updated_project
+      expect(response.status).to eq(302)
+    end
+
+    it "renders edit view when update is unsuccessful" do
+      session[:user_id] = create_ownership.user
+      unsuccessful_project = {
+        project: {
+          name: ''
+        },
+        id: @project.id
+      }
+      put :update, unsuccessful_project
+      expect(response).to render_template('edit')
     end
   end
 
 
   describe "#destroy" do
     before do
-      @user = User.create!(
-        first_name: "Joe",
-        last_name: "Example",
-        password: "password",
-        email: "joe@example.com",
-      )
-      @project = Project.create!(
-        name: "Acme"
-      )
+      @user = create_user
+      @project = create_project
     end
 
     it "does not allow visitors to destroy" do
@@ -251,28 +285,24 @@ describe ProjectsController do
     end
 
     it "does not allow project members to destroy" do
-      Membership.create!(
-        user: @user,
-        project: @project,
-        title: 'Member',
-      )
+      @membership = create_membership
       session[:user_id] = @user.id
       get :destroy, id: @project.id
       expect(response.status).to eq(404)
     end
 
     it "allows project owners to destroy" do
-      Membership.create!(
-        user: @user,
-        project: @project,
-        title: 'Owner',
-      )
+      @membership = create_membership(title: 'Owner')
       session[:user_id] = @user.id
       get :destroy, id: @project.id
       expect(response.status).to eq(302)
     end
 
     it "allows admin to destroy" do
+      @user = create_user(admin: true, email: "admin@example.com")
+      session[:user_id] = @user.id
+      get :destroy, id: @project.id
+      expect(response.status).to eq(302)
     end
   end
 end

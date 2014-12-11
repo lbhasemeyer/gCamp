@@ -135,7 +135,7 @@ require 'rails_helper'
     end
     within ".well" do
       select "Barry Bonds", from: "membership_user_id"
-      select "Owner", from: "membership_title"
+      select "Member", from: "membership_title"
     end
     click_on("Add New Member")
     within('table.table tr', text: "Barry Bonds") do
