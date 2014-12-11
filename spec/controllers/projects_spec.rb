@@ -10,7 +10,6 @@ describe ProjectsController do
     before do
       @user = create_user
       @project = create_project
-      @membership = create_membership
     end
 
     it "does not allow visitors to see index" do
@@ -48,6 +47,7 @@ describe ProjectsController do
   describe "#new" do
     before do
       @user = create_user
+      @user2 = create_user(email: "venus@planet.com")
       @project = create_project
     end
 
@@ -63,15 +63,13 @@ describe ProjectsController do
     end
 
     it "allows project members to see the new project page" do
-      @membership = create_membership
-      session[:user_id] = @user.id
+      session[:user_id] = create_membership.user
       get :new
       expect(response.status).to eq(200)
     end
 
     it "allows project owners to see the new project page" do
-      @membership = create_membership(title: 'Owner')
-      session[:user_id] = @user.id
+      session[:user_id] = create_ownership.user
       get :new
       expect(response.status).to eq(200)
     end
@@ -139,6 +137,7 @@ describe ProjectsController do
   describe "#show" do
     before do
       @user = create_user
+      @user2 = create_user(email: "venus@planet.com")
       @project = create_project
     end
 
@@ -154,15 +153,13 @@ describe ProjectsController do
     end
 
     it "allows project members to see show page" do
-      @membership = create_membership
-      session[:user_id] = @user.id
+      session[:user_id] = create_membership.user
       get :show, id: @project.id
       expect(response.status).to eq(200)
     end
 
     it "allows project owners to see show page" do
-      @membership = create_membership(title: 'Owner')
-      session[:user_id] = @user.id
+      session[:user_id] = create_ownership.user
       get :show, id: @project.id
       expect(response.status).to eq(200)
     end
@@ -179,6 +176,7 @@ describe ProjectsController do
   describe "#edit" do
     before do
       @user = create_user
+      @user2 = create_user(email: "venus@planet.com")
       @project = create_project
     end
 
@@ -194,15 +192,13 @@ describe ProjectsController do
     end
 
     it "does not allow project members to see edit page" do
-      @membership = create_membership
-      session[:user_id] = @user.id
+      session[:user_id] = create_membership.user
       get :edit, id: @project.id
       expect(response.status).to eq(404)
     end
 
     it "allows project owners to see edit page" do
-      @membership = create_membership(title: 'Owner')
-      session[:user_id] = @user.id
+      session[:user_id] = create_ownership.user
       get :edit, id: @project.id
       expect(response.status).to eq(200)
     end
@@ -270,6 +266,7 @@ describe ProjectsController do
   describe "#destroy" do
     before do
       @user = create_user
+      @user2 = create_user(email: "venus@planet.com")
       @project = create_project
     end
 
@@ -285,15 +282,13 @@ describe ProjectsController do
     end
 
     it "does not allow project members to destroy" do
-      @membership = create_membership
-      session[:user_id] = @user.id
+      session[:user_id] = create_membership.user
       get :destroy, id: @project.id
       expect(response.status).to eq(404)
     end
 
     it "allows project owners to destroy" do
-      @membership = create_membership(title: 'Owner')
-      session[:user_id] = @user.id
+      session[:user_id] = create_ownership.user
       get :destroy, id: @project.id
       expect(response.status).to eq(302)
     end
