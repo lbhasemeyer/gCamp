@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   post "/sign-in" => "authentication#create"
   get "/sign-out" => "authentication#destroy", as: :signout
 
+  get "/tracker_projects/:tracker_id" => "projects#tracker_stories", as: :tracker_projects
 
 
   # The priority is based upon order of creation: first created -> highest priority.

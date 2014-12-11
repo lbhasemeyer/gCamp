@@ -1,0 +1,27 @@
+<div class="page-header"><p class="pull-right">(showing first 500)</p><h1>Stories for</h1>
+</div>
+
+<table  class="table table-striped" border="1px solid" >
+  <thead>
+    <tr>
+      <th>Story</th>
+      <th>Estimate</th>
+      <th>Labels</th>
+      <th>Current State</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tracker_stories.each do |story| %>
+      <tr>
+        <td class="col-sm-6"><%= story[:name] %></td>
+        <td class="col-sm-2"><%= story[:estimate] %></td>
+        <td><% @labels = [] %>
+          <% story[:labels].each do |label| %>
+            <% @labels << label[:name] %>
+          <% end %>
+          <%= @labels.join(", ") %></td>
+        <td class="col-sm-2"><%= story[:current_state] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

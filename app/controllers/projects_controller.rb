@@ -51,6 +51,11 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def tracker_stories
+    tracker_api = TrackerAPI.new
+    @tracker_stories = tracker_api.stories(params[:tracker_id], current_user.PTtoken)
+  end
+
   private
 
   def authorize_membership

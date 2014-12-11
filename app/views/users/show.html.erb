@@ -19,6 +19,9 @@
     <% if @user.PTtoken.present? %>
     <dt>Pivotal Tracker Token</dt>
       <dd><%= @user.PTtoken[0..3] %><%= "*" * (@user.PTtoken.length-4) %></dd>
+    <% else %>
+    <dt>Pivotal Tracker Token</dt>
+    <dd>(No Token Given)</dd>
     <% end %>
   </dl>
 
