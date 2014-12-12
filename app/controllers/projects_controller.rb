@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
     @projects = Project.all
     tracker_api = TrackerAPI.new
     #we're never going to render this or pass to the view, so it's not an instance variable
-    @tracker_projects = tracker_api.projects(current_user.PTtoken)
+    @tracker_projects = tracker_api.projects(current_user.tracker_token)
   end
 
   def show
@@ -52,8 +52,7 @@ class ProjectsController < ApplicationController
   end
 
   def tracker_stories
-    tracker_api = TrackerAPI.new
-    @tracker_stories = tracker_api.stories(params[:tracker_id], current_user.PTtoken)
+    @tracker_stories = TrackerAPI.new.stories(params[:tracker_id], current_user.tracker_token)
   end
 
   private
