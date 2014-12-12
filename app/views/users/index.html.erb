@@ -2,7 +2,9 @@
 <div class= "tasks_page">
     <h1>Users
         &nbsp
-        <%= link_to 'Create User', new_user_path, class: "btn btn-primary pull-right" %>
+        <% if current_user.admin %>
+          <%= link_to 'Create User', new_user_path, class: "btn btn-primary pull-right" %>
+        <% end %>
       </div>
     </h1>
 

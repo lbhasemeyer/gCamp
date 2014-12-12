@@ -1,7 +1,3 @@
-# @password = 'password'
-# @user = create_user(password: @password)
-# sign_in(@user, @password)
-
 require 'rails_helper'
 
 describe ProjectsController do

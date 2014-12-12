@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
-  before_action :authorize_user, only: [:show, :edit, :update]
-  before_action :authorize_destroy, only: [:destroy]
+  before_action :authorize_user, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_admin, only: [:new, :create]
 
   def index
     @users = User.all
@@ -39,8 +39,13 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
-    redirect_to users_url, notice: 'User was successfully deleted.'
+    if current_user.admin
+      @user.destroy
+      redirect_to users_url, notice: 'User was successfully deleted.'
+    elsif current_user == @user
+      @user.destroy
+      redirect_to signin_path, notice: 'User was successfully deleted.'
+    end
   end
 
   private
@@ -52,7 +57,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def authorize_destroy
+  def authorize_admin
     unless current_user.admin
       raise AccessDenied
     end

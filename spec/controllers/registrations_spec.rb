@@ -1,3 +1,7 @@
+# @password = 'password'
+# @user = create_user(password: @password)
+# sign_in(@user, @password)
+
 require 'rails_helper'
 
 describe RegistrationsController do
@@ -9,6 +13,14 @@ describe RegistrationsController do
   end
 
   describe '#create' do
-  end
+    before do
+      @user = create_user
+    end
 
+    it 'renders the new_project_path on a successful create' do
+    end
+
+    it 'renders new on an unsuccessful create' do
+    end
+  end
 end
