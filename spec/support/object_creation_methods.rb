@@ -14,6 +14,12 @@ def create_project(overrides = {})
   )
 end
 
+def create_task(overrides = {})
+  Task.create!(
+    {description: "Drink More Than a Camel"}.merge(overrides)
+  )
+end
+
 def create_membership(overrides = {})
   Membership.create!(
     {user: @user,

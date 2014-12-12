@@ -13,7 +13,7 @@ describe ProjectsController do
       expect(response.status).to redirect_to(signin_path)
     end
 
-    it "allows non-members to see" do
+    it "allows non-members to see index" do
       session[:user_id] = @user.id
       get :index
       expect(response.status).to eq(200)
@@ -219,6 +219,11 @@ describe ProjectsController do
         project: {
           name: 'Updated Project Name'
           }, id: @project.id}
+    end
+
+    it "does not allow visitors to update an existing project" do
+      get :edit, id: @project.id
+      expect(response.status).to redirect_to(signin_path)
     end
 
     it "does not allow unassociated users to update an existing project" do

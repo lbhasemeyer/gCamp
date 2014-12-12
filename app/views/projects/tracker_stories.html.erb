@@ -1,5 +1,8 @@
 <div class="page-header"><p class="pull-right">(showing first 500)</p><h1>Stories for</h1></div>
 
+
+<!-- if project id == params id, print it out -->
+
 <table  class="table table-striped" border="1px solid" >
   <thead>
     <tr>
@@ -14,7 +17,7 @@
       <tr>
         <td class="col-sm-6"><%= story[:name] %></td>
         <td class="col-sm-2"><%= story[:estimate] %></td>
-        <td><% @labels = [] %>
+        <td class="col-sm-2"><% @labels = [] %>
           <% story[:labels].each do |label| %>
             <% @labels << label[:name] %>
           <% end %>
