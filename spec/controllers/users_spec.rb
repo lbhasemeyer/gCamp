@@ -117,10 +117,10 @@ describe UsersController do
       expect(response).to render_template('show')
     end
 
-    it "does not non-admin to see another user's show page" do
+    it "allows non-admin to see another user's show page" do
       session[:user_id] = @user.id
       get :show, id: @user2.id
-      expect(response.status).to eq(404)
+      expect(response).to render_template('show')
     end
 
     it "allows admin to see to see their own show page" do
