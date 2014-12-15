@@ -1,13 +1,18 @@
 require 'rails_helper'
 
 describe ProjectsController do
+  before do
+    @user = create_user
+    @user2 = create_user(email: "venus@planet.com")
+    @admin = create_user(admin: true, email: "admin@example.com")
+    @project = create_project
+    @updated_project = {
+      project: {
+        name: 'Updated Project Name'
+        }, id: @project.id}
+  end
 
   describe "#index" do
-    before do
-      @user = create_user
-      @project = create_project
-    end
-
     it "does not allow visitors to see index" do
       get :index
       expect(response.status).to redirect_to(signin_path)
@@ -32,8 +37,7 @@ describe ProjectsController do
     end
 
     it "allows admin to see index" do
-      @user = create_user(admin: true, email: "admin@example.com")
-      session[:user_id] = @user.id
+      session[:user_id] = @admin
       get :index
       expect(response.status).to eq(200)
     end
@@ -41,12 +45,6 @@ describe ProjectsController do
 
 
   describe "#new" do
-    before do
-      @user = create_user
-      @user2 = create_user(email: "venus@planet.com")
-      @project = create_project
-    end
-
     it "does not allow visitors to see the new project page" do
       get :new
       expect(response.status).to redirect_to(signin_path)
@@ -71,8 +69,7 @@ describe ProjectsController do
     end
 
     it "allows admin to see the new project page" do
-      @user = create_user(admin: true, email: "admin@example.com")
-      session[:user_id] = @user.id
+      session[:user_id] = @admin
       get :new
       expect(response.status).to eq(200)
     end
@@ -80,46 +77,40 @@ describe ProjectsController do
 
 
   describe "#create" do
-    before do
-      @user = create_user
-      @user2 = create_user(email: "venus@planet.com")
-      @admin = create_user(admin: true, email: "admin@example.com")
-    end
-
     it "doesn't let visitors create a project" do
       session[:user_id] = nil
-      post :create, :project => { name: "Walk Around Christmas Tree" }
+      post :create, :project => { name: "Walk Around Christmas Tree" }, project_id: @project.id
       expect(response).to redirect_to(signin_path)
     end
 
     it "allows a user with no memberships to create a project" do
       session[:user_id] = @user
       post :create, :project => { name: "Make a Nalgene"}
-      expect(response).to redirect_to(project_tasks_path(Project.all.first))
+      expect(response).to redirect_to(project_tasks_path(Project.all.last))
     end
 
     it "allows a member to create a project" do
       session[:user_id] = create_membership.user
       post :create, :project => { name: "Make a Nalgene"}
-      expect(response).to redirect_to(project_tasks_path(Project.all.first))
+      expect(response).to redirect_to(project_tasks_path(Project.all.last))
     end
 
     it "allows an owner to create a project" do
       session[:user_id] = create_ownership.user
       post :create, :project => { name: "Make a Nalgene"}
-      expect(response).to redirect_to(project_tasks_path(Project.all.first))
+      expect(response).to redirect_to(project_tasks_path(Project.all.last))
     end
 
     it "allows an admin to create a project" do
       session[:user_id] = @admin
       post :create, :project => { name: "Eat 81 Cookies"}
-      expect(response).to redirect_to(project_tasks_path(Project.all.first))
+      expect(response).to redirect_to(project_tasks_path(Project.all.last))
     end
 
     it "redirects to project tasks on save" do
       session[:user_id] = @user
       post :create, :project => {name: "Eat Apple while on Head"}
-      expect(response).to redirect_to(project_tasks_path(Project.all.first))
+      expect(response).to redirect_to(project_tasks_path(Project.all.last))
     end
 
     it "renders new if save is unsuccessful" do
@@ -131,12 +122,6 @@ describe ProjectsController do
 
 
   describe "#show" do
-    before do
-      @user = create_user
-      @user2 = create_user(email: "venus@planet.com")
-      @project = create_project
-    end
-
     it "does not allow visitors to see show page" do
       get :show, id: @project.id
       expect(response.status).to redirect_to(signin_path)
@@ -161,8 +146,7 @@ describe ProjectsController do
     end
 
     it "allows admin to see show page" do
-      @user = create_user(admin: true, email: "admin@example.com")
-      session[:user_id] = @user.id
+      session[:user_id] = @admin
       get :show, id: @project.id
       expect(response.status).to eq(200)
     end
@@ -170,12 +154,6 @@ describe ProjectsController do
 
 
   describe "#edit" do
-    before do
-      @user = create_user
-      @user2 = create_user(email: "venus@planet.com")
-      @project = create_project
-    end
-
     it "does not allow visitors to see edit page" do
       get :edit, id: @project.id
       expect(response.status).to redirect_to(signin_path)
@@ -200,8 +178,7 @@ describe ProjectsController do
     end
 
     it "allows admin to see edit page" do
-      @user = create_user(admin: true, email: "admin@example.com")
-      session[:user_id] = @user.id
+      session[:user_id] = @admin
       get :edit, id: @project.id
       expect(response.status).to eq(200)
     end
@@ -209,24 +186,12 @@ describe ProjectsController do
 
 
   describe "#update" do
-    before do
-      @user = create_user
-      @user2 = create_user(email: "venus@planet.com")
-      @admin = create_user(admin: true, email: "admin@example.com")
-      @project = create_project
-      @project2 = create_project
-      @updated_project = {
-        project: {
-          name: 'Updated Project Name'
-          }, id: @project.id}
-    end
-
     it "does not allow visitors to update an existing project" do
-      get :edit, id: @project.id
+      put :update, @updated_project
       expect(response.status).to redirect_to(signin_path)
     end
 
-    it "does not allow unassociated users to update an existing project" do
+    it "does not allow non-members to update an existing project" do
       session[:user_id] = @user
       put :update, @updated_project
       expect(response.status).to eq(404)
@@ -244,7 +209,7 @@ describe ProjectsController do
       expect(response).to redirect_to(project_path(Project.first))
     end
 
-    it "allows admins to update project and be redirected" do
+    it "allows admins to update project and redirect" do
       session[:user_id] = @admin
       put :update, @updated_project
       expect(response.status).to eq(302)
@@ -265,12 +230,6 @@ describe ProjectsController do
 
 
   describe "#destroy" do
-    before do
-      @user = create_user
-      @user2 = create_user(email: "venus@planet.com")
-      @project = create_project
-    end
-
     it "does not allow visitors to destroy" do
       get :destroy, id: @project.id
       expect(response.status).to redirect_to(signin_path)
@@ -295,8 +254,7 @@ describe ProjectsController do
     end
 
     it "allows admin to destroy" do
-      @user = create_user(admin: true, email: "admin@example.com")
-      session[:user_id] = @user.id
+      session[:user_id] = @admin
       get :destroy, id: @project.id
       expect(response.status).to eq(302)
     end

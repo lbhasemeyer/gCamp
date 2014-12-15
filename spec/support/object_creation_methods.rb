@@ -16,7 +16,8 @@ end
 
 def create_task(overrides = {})
   Task.create!(
-    {description: "Drink More Than a Camel"}.merge(overrides)
+    {description: "Drink More Than a Camel",
+    project: @project}.merge(overrides)
   )
 end
 
