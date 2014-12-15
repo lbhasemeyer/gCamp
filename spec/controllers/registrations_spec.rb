@@ -1,8 +1,8 @@
+# require 'rails_helper'
+#
 # @password = 'password'
 # @user = create_user(password: @password)
 # sign_in(@user, @password)
-
-# require 'rails_helper'
 #
 # describe RegistrationsController do
 #   describe '#new' do
