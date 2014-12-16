@@ -15,8 +15,10 @@
     <dt>Last Name</dt>
     <dd><%= @user.last_name %></dd>
 
-    <dt>Email</dt>
-    <dd><%= mail_to @user.email %></dd>
+    <% if current_user.admin? || current_user == @user || current_user.is_co_project_with?(@user) %>
+      <dt>Email</dt>
+      <dd><%= mail_to @user.email %></dd>
+    <% end %>
 
     <% if @user.tracker_token.present? %>
     <dt>Pivotal Tracker Token</dt>
