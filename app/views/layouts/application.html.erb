@@ -25,13 +25,15 @@
                   All Projects
                   <span class="caret"></span>
                 </a>
-                <ul class="dropdown-menu" role="menu">
-                  <% @projects.each do |project| %>
-                  <li><%= link_to project.name, project_path(project) %></li>
-                  <% end %>
-                  <li class="divider"></li>
-                  <li><%= link_to "New Project", new_project_path %></li>
-                </ul>
+                <% if @projects.present? %>
+                  <ul class="dropdown-menu" role="menu">
+                    <% @projects.each do |project| %>
+                    <li><%= link_to project.name, project_path(project) %></li>
+                    <% end %>
+                    <li class="divider"></li>
+                    <li><%= link_to "New Project", new_project_path %></li>
+                  </ul>
+                <% end %>
               </li>
             </ul>
             <div class="navbar-brand">
