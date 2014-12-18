@@ -1,11 +1,12 @@
 
-  <div class="page-header">
+  <div>
       <div class= "pull-right">
         <% if current_user.is_owner?(@project) %>
           <%= link_to 'Edit', edit_project_path(@project), class: "btn btn-primary" %>
         <% end %>
       </div>
-    <h1><%= @project.name %></h1>
+    <%= page_header "#{@project.name}" %>
+
   </div>
 
   <div class="form-group">

@@ -1,6 +1,6 @@
 
 <div class= "tasks_page">
-    <div class="page-header">
+    <div>
       <div class="pull-right">
         <% if params[:filter_by] == "all" %>
           All
@@ -14,7 +14,9 @@
         &nbsp
         <%= link_to 'Create Task', new_project_task_path, class: "btn btn-primary pull-right" %>
       </div>
-      <h1>Tasks for <%= @project.name %></h1>
+
+      <%= page_header "Tasks for #{@project.name}" %>
+
     </div>
 
   <ol class="breadcrumb task_index">
