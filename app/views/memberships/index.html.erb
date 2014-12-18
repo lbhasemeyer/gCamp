@@ -43,10 +43,10 @@
               <td class="col-sm-1">
                 <%= f.submit "Update", class: "btn btn-primary" %>
               </td>
-              <td>
+              <td><% unless (@memberships.where(title: 'Owner').count == 1 && membership.title == 'Owner') %>
                 <%= link_to "", project_membership_path(@project, membership),
                     method: :delete, data: { confirm: 'Are you sure?'},
-                    class: "glyphicon glyphicon-remove" %>
+                    class: "glyphicon glyphicon-remove" %><% end %>
               </td>
             <% end %>
           </tr>
