@@ -1,6 +1,6 @@
-<div class="page-header"><p class="pull-right">(showing first 500)</p>
-  <%= page_header "#{@project}" %></div>
-
+<%= page_header "Stories for #{@project}" do %>
+  <%= "(showing first 500)" %>
+<% end %>
 
 <!-- if project id == params id, print it out -->
 
